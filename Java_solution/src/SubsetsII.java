@@ -110,12 +110,4 @@ public class SubsetsII
             }
         }
     }
-
-    public static void main(String[] args)
-    {
-        SubsetsII s = new SubsetsII();
-        int[] num = {0, 2, 1, 3, 4, 7, 4, 5, 9};
-
-        s.subsetsWithDup(num);
-    }
 }

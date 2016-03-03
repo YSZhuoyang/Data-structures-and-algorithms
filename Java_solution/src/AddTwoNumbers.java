@@ -108,10 +108,4 @@ public class AddTwoNumbers
 
         return first;
     }
-
-    public static void main()
-    {
-        AddTwoNumbers atn = new AddTwoNumbers();
-        atn.addTwoNumbers(new ListNode(0), new ListNode(0));
-    }
 }
