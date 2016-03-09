@@ -38,15 +38,8 @@ public class LongestPalindromicSubstring
     public boolean testPalindromic(int start, int end, String s)
     {
         int len = end - start + 1;
-        //System.out.println("start: " + start);
-        //System.out.println("end: " + end);
 
-        if (start > end)
-        {
-            return false;
-        }
-
-        for (int i = start; i <= len / 2; i++)
+        for (int i = start; i <= start + len / 2; i++)
         {
             if (s.charAt(i) != s.charAt(end - i + start))
             {
