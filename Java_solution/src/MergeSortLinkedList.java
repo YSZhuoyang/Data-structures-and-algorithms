@@ -13,7 +13,6 @@ public class MergeSortLinkedList
          ListNode(int x) { val = x; }
      }
 
-    // Insertion sort
     public ListNode sortList(ListNode head)
     {
         if (head == null || head.next == null)
@@ -21,12 +20,12 @@ public class MergeSortLinkedList
             return head;
         }
 
-        recursivelySort(head);
+        mergeSort(head);
 
         return head;
     }
 
-    public void recursivelySort(ListNode list)
+    public void mergeSort(ListNode list)
     {
         ListNode leftHalf = new ListNode(0);
         ListNode rightHalf = new ListNode(0);
@@ -38,8 +37,8 @@ public class MergeSortLinkedList
 
         split(list, leftHalf, rightHalf);
 
-        recursivelySort(leftHalf);
-        recursivelySort(rightHalf);
+        mergeSort(leftHalf);
+        mergeSort(rightHalf);
 
         merge(list, leftHalf, rightHalf);
     }
@@ -77,7 +76,8 @@ public class MergeSortLinkedList
         right.val = slow.next.val;
         right.next = slow.next.next;
 
-        slow.next = null;
+        slow.next = null;   // Place this line before assignment of 'left' or after assignment of 'left'
+                            // will cause errors
         left.val = origin.val;
         left.next = origin.next;
     }
