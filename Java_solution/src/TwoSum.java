@@ -28,17 +28,17 @@ public class TwoSum
         return solution;
     }
 
-    // Shared as reference
+    // Shared as a reference
     public int[] twoSumRef(int[] nums, int target)
     {
         int[] result = {0, 0};
         Map<Integer, Integer> map = new HashMap<>();
 
         /*
-         * for every entry in the array, store the (target-num) into the map with the index of the num
-         * When the (target- num)appears in the array, we can return the values at that moment itself
+         * For every entry in the array, store the (target - num) into the map with the index of the num
+         * When the (target - num) appears in the array, we can return the values at that moment itself
          */
-        for(int i = 0; i < nums.length; i++)
+        for (int i = 0; i < nums.length; i++)
         {
             if (map.containsKey(nums[i]))
             {
