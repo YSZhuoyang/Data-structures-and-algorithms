@@ -1,27 +1,42 @@
-import java.text.Collator;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by oscar on 3/13/16.
  */
 public class FourSum
 {
+    // My solution
     public List<List<Integer>> fourSum(int[] nums, int target)
     {
         // Each element has a pair of numbers and their sum
         // total number of pairs: (1 + (n - 1)) * n / 2
         int[][] pairs = new int[nums.length * (nums.length - 1) / 2][3];
-        LinkedList<List<Integer>> results = new LinkedList<>();
         int index = 0;
+        ArrayList<List<Integer>> results = new ArrayList<>();
+
+        if(nums.length < 4)
+        {
+            return results;
+        }
+
+        Arrays.sort(nums);
 
         // Compute and initialize the pairs of sum of two array
-        for (int i = 0; i < nums.length; i++)
+        for (int i = 0; i < nums.length - 1; i++)
         {
+            if (i > 1 && nums[i] == nums[i - 1])
+            {
+                continue;
+            }
+
             // Avoid duplication
             for (int j = i + 1; j < nums.length; j++)
             {
+                if (j > i + 1 && nums[j] == nums[j - 1])
+                {
+                    continue;
+                }
+
                 pairs[index][0] = i;
                 pairs[index][1] = j;
                 pairs[index][2] = nums[i] + nums[j];
@@ -30,129 +45,47 @@ public class FourSum
             }
         }
 
-        // Sort pairs array
-
-
         // Find the two elements from the pairs array
-        HashMap<Integer, Integer> map = new HashMap<>();
-        int indexInPairs;
-        LinkedList<Integer> result;
-
-        for (int i = 0; i < pairs.length - 1; i++)
+        for (int i = 0; i < index - 1; i++)
         {
-            for (int j = i + 1; j < pairs.length; j++)
+            for (int j = i + 1; j < index; j++)
             {
-                if (pairs[i][2] + pairs[j][2] == target)
+                if (pairs[i][2] + pairs[j][2] == target && pairs[i][1] < pairs[j][0])
                 {
-                    result = new LinkedList<>();
-
-                    if (pairs[j][0] != pairs[i][0] &&
-                            pairs[j][0] != pairs[i][1] &&
-                            pairs[j][1] != pairs[i][0] &&
-                            pairs[j][1] != pairs[i][1])
-                    {
-                        result.add(nums[pairs[j][0]]);
-                        result.add(nums[pairs[j][1]]);
-                        result.add(nums[pairs[i][0]]);
-                        result.add(nums[pairs[i][1]]);
-
-                        // Sort result
-                        result.sort((o1, o2) ->
-                        {
-                            if (o1 > o2)
-                            {
-                                return 1;
-                            }
-                            else if (o1 < o2)
-                            {
-                                return -1;
-                            }
-                            else
-                            {
-                                return 0;
-                            }
-                        });
-
-                        // Remove duplicates
-                        int x = 0;
-
-                        while (x < results.size() &&
-                                (results.get(x).get(0) != result.get(0) ||
-                                results.get(x).get(1) != result.get(1) ||
-                                results.get(x).get(2) != result.get(2) ||
-                                results.get(x).get(3) != result.get(3)))
-                        {
-                            x++;
-                        }
-
-                        if (x == results.size())
-                        {
-                            results.add(result);
-                        }
-                    }
+                    results.add(Arrays.asList(nums[pairs[i][0]], nums[pairs[i][1]], nums[pairs[j][0]], nums[pairs[j][1]]));
                 }
             }
         }
 
-        /*for (int i = 0; i < pairs.length; i++)
-        {
-            if (map.containsKey(pairs[i][2]))
-            {
-                indexInPairs = map.get(pairs[i][2]);
-
-                result = new LinkedList<>();
-
-                if (pairs[indexInPairs][0] != pairs[i][0] &&
-                    pairs[indexInPairs][0] != pairs[i][1] &&
-                    pairs[indexInPairs][1] != pairs[i][0] &&
-                    pairs[indexInPairs][1] != pairs[i][1])
-                {
-                    result.add(nums[pairs[indexInPairs][0]]);
-                    result.add(nums[pairs[indexInPairs][1]]);
-                    result.add(nums[pairs[i][0]]);
-                    result.add(nums[pairs[i][1]]);
-
-                    // Sort result
-                    result.sort((o1, o2) ->
-                    {
-                        if (o1 > o2)
-                        {
-                            return 1;
-                        }
-                        else if (o1 < o2)
-                        {
-                            return -1;
-                        }
-                        else
-                        {
-                            return 0;
-                        }
-                    });
-
-                    // Remove duplicates
-                    int x = 0;
-
-                    while (x < results.size() &&
-                            (results.get(x).get(0) != result.get(0) ||
-                            results.get(x).get(1) != result.get(1) ||
-                            results.get(x).get(2) != result.get(2) ||
-                            results.get(x).get(3) != result.get(3)))
-                    {
-                        x++;
-                    }
-
-                    if (x == results.size())
-                    {
-                        results.add(result);
-                    }
-                }
-            }
-            else
-            {
-                map.put(target - pairs[i][2], i);
-            }
-        }*/
-
         return results;
     }
+
+    // A good solution
+    /*public List<List<Integer>> fourSum(int[] nums, int target) {
+        ArrayList<List<Integer>> abcd = new ArrayList<>();
+        if(nums.length<4) return abcd;
+        Arrays.sort(nums);
+        for(int i = 0;i<nums.length-3;i++){
+            if(i>0 && nums[i]==nums[i-1]) continue;
+            for(int j = i+1; j<nums.length-2;j++){
+                if(j>i+1 && nums[j]== nums[j-1]) continue;
+                int low = j+1, high = nums.length-1;
+                while(low<high){
+                    int sum = nums[i] + nums[j] + nums[low] + nums[high];
+                    if(sum==target){
+                        abcd.add(Arrays.asList(nums[i], nums[j], nums[low], nums[high]));
+                        while(low<high&&nums[low]==nums[low+1])low++;
+                        while(low<high&&nums[high]==nums[high-1])high--;
+                        low++;
+                        high--;
+                    }
+                    else if(sum<target){
+                        low++;
+                    }
+                    else high--;
+                }
+            }
+        }
+        return abcd;
+    }*/
 }
