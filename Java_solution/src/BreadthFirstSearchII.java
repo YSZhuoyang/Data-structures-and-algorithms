@@ -1,11 +1,12 @@
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
  * Created by oscar on 3/22/16.
  */
-public class BreathFirstSearch
+public class BreadthFirstSearchII
 {
 
     public class TreeNode
@@ -20,10 +21,10 @@ public class BreathFirstSearch
         }
     }
 
-    // My solution
-    public List<List<Integer>> levelOrder(TreeNode root)
+    // My solution, store values of each level in bottom up order
+    public List<List<Integer>> levelOrderBottom(TreeNode root)
     {
-        ArrayList<List<Integer>> lists = new ArrayList<>();
+        LinkedList<List<Integer>> lists = new LinkedList<>();
         ArrayDeque<TreeNode> queue = new ArrayDeque<>();
 
         if (root != null)
@@ -35,7 +36,7 @@ public class BreathFirstSearch
         return lists;
     }
 
-    public void breadFirstTraversal(ArrayList<List<Integer>> lists, ArrayDeque<TreeNode> queue)
+    public void breadFirstTraversal(LinkedList<List<Integer>> lists, ArrayDeque<TreeNode> queue)
     {
         if (!queue.isEmpty())
         {
@@ -59,7 +60,7 @@ public class BreathFirstSearch
                 }
             }
 
-            lists.add(list);
+            lists.push(list);
             breadFirstTraversal(lists, newQueue);
         }
     }
