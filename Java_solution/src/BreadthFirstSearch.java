@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by oscar on 3/22/16.
  */
-public class BreathFirstSearch
+public class BreadthFirstSearch
 {
 
     // My solution
@@ -17,13 +17,13 @@ public class BreathFirstSearch
         if (root != null)
         {
             queue.add(root);
-            breadFirstTraversal(lists, queue);
+            breadthFirstTraversal(lists, queue);
         }
 
         return lists;
     }
 
-    public void breadFirstTraversal(ArrayList<List<Integer>> lists, ArrayDeque<TreeNode> queue)
+    private void breadthFirstTraversal(ArrayList<List<Integer>> lists, ArrayDeque<TreeNode> queue)
     {
         if (!queue.isEmpty())
         {
@@ -48,7 +48,7 @@ public class BreathFirstSearch
             }
 
             lists.add(list);
-            breadFirstTraversal(lists, newQueue);
+            breadthFirstTraversal(lists, newQueue);
         }
     }
 }

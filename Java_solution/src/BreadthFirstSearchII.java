@@ -18,13 +18,13 @@ public class BreadthFirstSearchII
         if (root != null)
         {
             queue.add(root);
-            breadFirstTraversal(lists, queue);
+            breadthFirstTraversal(lists, queue);
         }
 
         return lists;
     }
 
-    public void breadFirstTraversal(LinkedList<List<Integer>> lists, ArrayDeque<TreeNode> queue)
+    private void breadthFirstTraversal(LinkedList<List<Integer>> lists, ArrayDeque<TreeNode> queue)
     {
         if (!queue.isEmpty())
         {
@@ -49,7 +49,7 @@ public class BreadthFirstSearchII
             }
 
             lists.push(list);
-            breadFirstTraversal(lists, newQueue);
+            breadthFirstTraversal(lists, newQueue);
         }
     }
 }
