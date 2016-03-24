@@ -9,18 +9,6 @@ import java.util.List;
 public class BreadthFirstSearchII
 {
 
-    public class TreeNode
-    {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode(int x)
-        {
-            val = x;
-        }
-    }
-
     // My solution, store values of each level in bottom up order
     public List<List<Integer>> levelOrderBottom(TreeNode root)
     {

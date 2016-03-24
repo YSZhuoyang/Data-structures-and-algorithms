@@ -3,17 +3,6 @@
  */
 public class SwapNodesInPairs
 {
-    //Definition for singly-linked list.
-    private class ListNode
-    {
-        int val;
-        ListNode next;
-
-        ListNode(int x)
-        {
-            val = x;
-        }
-    }
 
     public ListNode swapPairs(ListNode head)
     {

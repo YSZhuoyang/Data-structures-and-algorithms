@@ -7,21 +7,6 @@ public class BalancedBinaryTree
 {
     HashMap<Integer, Integer> memo = new HashMap<>();
 
-    /**
-     * Definition for a binary tree node.
-     */
-    public class TreeNode
-    {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode (int x)
-        {
-            val = x;
-        }
-    }
-
     // A good one with clear and easy to understand idea
     // helper function to find the depth of a tree from a given node
     /*public Integer depthOfTree (TreeNode root)

@@ -8,18 +8,6 @@ import java.util.List;
 public class BreathFirstSearch
 {
 
-    public class TreeNode
-    {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode(int x)
-        {
-            val = x;
-        }
-    }
-
     // My solution
     public List<List<Integer>> levelOrder(TreeNode root)
     {
