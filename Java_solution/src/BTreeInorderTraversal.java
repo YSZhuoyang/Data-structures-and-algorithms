@@ -27,7 +27,7 @@ public class BTreeInorderTraversal
         }
     }
 
-    // An non - recursive alternative using stack
+    // A non - recursive alternative using stack
     /*public List<Integer> inorderTraversal(TreeNode root)
     {
         List<Integer> result = new ArrayList<>();

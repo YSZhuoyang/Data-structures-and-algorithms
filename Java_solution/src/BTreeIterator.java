@@ -14,16 +14,16 @@ public class BTreeIterator
     {
         queue = new ArrayDeque<>();
 
-        buildList(root);
+        buildQueue(root);
     }
 
-    private void buildList(TreeNode node)
+    private void buildQueue(TreeNode node)
     {
         if (node != null)
         {
-            buildList(node.left);
+            buildQueue(node.left);
             queue.add(node);
-            buildList(node.right);
+            buildQueue(node.right);
         }
     }
 
