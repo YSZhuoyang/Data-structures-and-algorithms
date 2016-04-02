@@ -36,4 +36,27 @@ public class RemoveLastNNode
 
         return head;
     }
+
+    /* A recommended solution
+    public ListNode removeNthFromEnd(ListNode head, int n)
+    {
+        ListNode start = new ListNode(0);
+        ListNode left = start, right = start;
+        start.next = head;
+
+        for(int i = 0; i < n + 1; i++)
+        {
+            right = right.next; // Create a gap between two pointers
+        }
+
+        while (right != null)
+        {
+            left = left.next;
+            right = right.next;
+        }
+
+        left.next = left.next.next;
+
+        return start.next;
+    }*/
 }
