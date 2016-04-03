@@ -9,7 +9,6 @@ public class CompareVersion
     {
         int l1 = version1.length();
         int l2 = version2.length();
-        int maxLen = Math.max(l1, l2);
 
         for (int i = 0, j = 0; i < l1 || j < l2; i++, j++)
         {
