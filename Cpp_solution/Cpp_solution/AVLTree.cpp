@@ -64,6 +64,10 @@ void AVLTree::inOrderPrint( Node * n )
 		std::cout << "Height: " << n->height << "  Value: " << n->value << std::endl;
 		inOrderPrint( n->rightChild );
 	}
+	else
+	{
+		std::cout << "null" << std::endl;
+	}
 }
 
 int AVLTree::getHeight( Node* n )
@@ -155,5 +159,7 @@ void AVLTree::deleteNode( Node * n )
 
 void AVLTree::printTree()
 {
+	std::cout << "Root: Height: " << root->height << "  Value: " << root->value << std::endl;
+
 	inOrderPrint( root );
 }
