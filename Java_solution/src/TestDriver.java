@@ -28,6 +28,17 @@ public class TestDriver
 
     public static void main(String[] args)
     {
-        testMedianOfTwoSortedArrays();
+        //testMedianOfTwoSortedArrays();
+
+        OddOrEven oe = new OddOrEven();
+
+        if (oe.isOddOrEven(2))
+        {
+            System.out.println("Odd");
+        }
+        else
+        {
+            System.out.println("Even");
+        }
     }
 }
