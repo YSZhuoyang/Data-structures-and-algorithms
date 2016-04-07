@@ -30,7 +30,7 @@ public:
 		}
 		else
 		{
-			for (int i = 0; i < nums.size(); i++)
+			for (unsigned int i = 0; i < nums.size(); i++)
 			{
 				vector<int> copy( nums );
 
@@ -41,7 +41,7 @@ public:
 		}
 	}
 
-	int getCoins( vector<int>& nums, int index )
+	int getCoins( vector<int>& nums, unsigned int index )
 	{
 		int left;
 		int right;

@@ -18,6 +18,8 @@ AVLTree::~AVLTree()
 
 void AVLTree::insert( int newElement )
 {
+	std::cout << "Start inserting value: " << newElement << std::endl;
+
 	Node* inserted = new Node();
 	inserted->value = newElement;
 	inserted->leftChild = nullptr;
@@ -25,7 +27,7 @@ void AVLTree::insert( int newElement )
 	inserted->height = 0;
 
 	recInsert( root, inserted );
-	reBalance( root );
+	root = reBalance( root, newElement );
 }
 
 void AVLTree::recInsert( Node * n, Node* inserted )
@@ -61,12 +63,8 @@ void AVLTree::inOrderPrint( Node * n )
 	if (n != nullptr)
 	{
 		inOrderPrint( n->leftChild );
-		std::cout << "Height: " << n->height << "  Value: " << n->value << std::endl;
+		std::cout << "Height: " << getHeight( n ) << "  Value: " << n->value << std::endl;
 		inOrderPrint( n->rightChild );
-	}
-	else
-	{
-		std::cout << "null" << std::endl;
 	}
 }
 
@@ -94,7 +92,7 @@ int AVLTree::getBalance( Node * n )
 	}
 }
 
-void AVLTree::rightRotate( Node * n )
+AVLTree::Node* AVLTree::rightRotate( Node * n )
 {
 	Node* newSubRoot = n->leftChild;
 	Node* newRightLeft = newSubRoot->rightChild;
@@ -106,10 +104,11 @@ void AVLTree::rightRotate( Node * n )
 	// Update heights
 	n->height = std::max( getHeight( n->leftChild ), getHeight( n->rightChild ) ) + 1;
 	newSubRoot->height = std::max( getHeight( newSubRoot->leftChild ), getHeight( newSubRoot->rightChild) ) + 1;
-	root = (getHeight( newSubRoot ) > getHeight( root )) ? newSubRoot : root;
+
+	return newSubRoot;
 }
 
-void AVLTree::leftRotate( Node * n )
+AVLTree::Node* AVLTree::leftRotate( Node * n )
 {
 	Node* newSubRoot = n->rightChild;
 	Node* newLeftRight = newSubRoot->leftChild;
@@ -121,26 +120,46 @@ void AVLTree::leftRotate( Node * n )
 	// Update heights
 	n->height = std::max( getHeight( n->leftChild ), getHeight( n->rightChild ) ) + 1;
 	newSubRoot->height = std::max( getHeight( newSubRoot->leftChild ), getHeight( newSubRoot->rightChild ) ) + 1;
-	root = (getHeight( newSubRoot ) > getHeight( root )) ? newSubRoot : root;
+
+	return newSubRoot;
 }
 
-void AVLTree::reBalance( Node * n )
+AVLTree::Node* AVLTree::reBalance( Node * n, int inserted )
 {
-	if (n == nullptr)
+	if (n->leftChild != nullptr)
 	{
-		return;
+		n->leftChild = reBalance( n->leftChild, inserted );
 	}
 
-	reBalance( n->leftChild );
-	reBalance( n->rightChild );
+	if (n->rightChild != nullptr)
+	{
+		n->rightChild = reBalance( n->rightChild, inserted );
+	}
 
+	// Left - right case, make it left - left
+	if (getBalance( n ) > 1 && inserted > n->leftChild->value)
+	{
+		n->leftChild = leftRotate( n->leftChild );
+	}
+	// Right - left case, make it right - right
+	else if (getBalance( n ) < -1 && inserted < n->rightChild->value)
+	{
+		n->rightChild = rightRotate( n->rightChild );
+	}
+
+	// Left - left case
 	if (getBalance( n ) > 1)
 	{
-		rightRotate( n );
+		return rightRotate( n );
 	}
+	// Right - right case
 	else if (getBalance( n ) < -1)
 	{
-		leftRotate( n );
+		return leftRotate( n );
+	}
+	else
+	{
+		return n;
 	}
 }
 
@@ -159,7 +178,7 @@ void AVLTree::deleteNode( Node * n )
 
 void AVLTree::printTree()
 {
-	std::cout << "Root: Height: " << root->height << "  Value: " << root->value << std::endl;
+	std::cout << "Root: Height: " << getHeight( root ) << "  Value: " << root->value << std::endl;
 
 	inOrderPrint( root );
 }

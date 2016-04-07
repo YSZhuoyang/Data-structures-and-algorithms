@@ -17,10 +17,10 @@ private:
 	};
 
 	// Carefull, root node might change due after rotation
-	void rightRotate( Node* n );
-	void leftRotate( Node* n );
+	Node* rightRotate( Node* n );
+	Node* leftRotate( Node* n );
 	// Careful, rebalance must be performed in post order
-	void reBalance( Node* n );
+	Node* reBalance( Node* n, int inserted );
 	void recInsert( Node* n, Node* inserted );
 	void inOrderPrint( Node* n );
 	void deleteNode( Node* n );
