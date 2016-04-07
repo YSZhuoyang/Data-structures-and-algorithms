@@ -15,10 +15,11 @@ int main()
 
 	AVLTree avlTree( 3 );
 
-	//avlTree.insert( 0 );
+	avlTree.insert( 0 );
 	avlTree.insert( 1 );
 	avlTree.insert( 2 );
-	//avlTree.insert( -1 );
+	avlTree.insert( 4 );
+	avlTree.insert( -1 );
 
 	avlTree.printTree();
 
