@@ -1,5 +1,8 @@
 #include "AVLTree.h"
+#include "LinkedList.h"
 #include "BurstBalloons.h"
+#include "Stack.h"
+
 
 int main()
 {
@@ -13,6 +16,9 @@ int main()
 	s.maxCoins( v );
 	*/
 
+	/* Test AVL Tree */
+	printf( "\nTest AVL Tree: \n\n" );
+
 	AVLTree avlTree;
 
 	if (avlTree.insert( 3 ) &&
@@ -22,15 +28,59 @@ int main()
 		avlTree.insert( 4 ) &&
 		avlTree.insert( -1 ))
 	{
-		std::cout << "Insertion succeeded!" << std::endl;
+		printf( "Insertion succeeded!\n" );
 	}
 
 	if (avlTree.deleteNode( 1 ))
 	{
-		std::cout << "Deletion succeeded!" << std::endl;
+		printf( "Deletion succeeded!\n" );
 	}
 
 	avlTree.printTree();
+
+
+	/* Test Linked list */
+	printf( "\n\nTest linked list: \n\n" );
+
+	LinkedList list( 0 );
+
+	list.append( 2 );
+	list.append( 1 );
+	list.append( -1 );
+
+	printf( "\n\nBefore deletion by index: \n\n" );
+	list.printList();
+
+	list.deleteByIndex( 3 );
+	printf( "\n\nAfter deletion by index 3: \n\n" );
+	list.printList();
+
+	list.deleteByIndex( 0 );
+	printf( "\n\nAfter deletion by index 0: \n\n" );
+	list.printList();
+	//std::cout << "size: " << +list.getSize() << std::endl;
+
+	list.deleteByIndex( 1 );
+	printf( "\n\nAfter deletion by index 1: \n\n" );
+	list.printList();
+	
+	list.deleteByIndex( 0 );
+	printf( "\n\nAfter deletion by index 0: \n\n" );
+	list.printList();
+	
+	printf( "\n\nBefore sorted: \n\n" );
+	list.printList();
+
+	list.sort();
+
+	printf( "\n\nAfter sorted: \n\n" );
+	list.printList();
+
+	/* Test stack */
+	Stack s;
+
+	s.push( 0 );
+	s.push( 3 );
 
 	getchar();
 

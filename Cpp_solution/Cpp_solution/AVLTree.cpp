@@ -9,7 +9,7 @@ AVLTree::AVLTree()
 
 AVLTree::AVLTree( int rootElement )
 {
-	root = new Node();
+	root = new AVLTreeNode();
 	root->height = 0;
 	root->leftChild = nullptr;
 	root->rightChild = nullptr;
@@ -23,7 +23,7 @@ AVLTree::~AVLTree()
 
 bool AVLTree::insert( int newElement )
 {
-	Node* nodeToBeInserted = new Node();
+	AVLTreeNode* nodeToBeInserted = new AVLTreeNode();
 	nodeToBeInserted->value = newElement;
 	nodeToBeInserted->leftChild = nullptr;
 	nodeToBeInserted->rightChild = nullptr;
@@ -58,7 +58,7 @@ bool AVLTree::deleteNode( int toBeDeleted )
 	{
 		std::cout << "Delete root node" << std::endl;
 
-		Node* nodeToBeDeleted = root;
+		AVLTreeNode* nodeToBeDeleted = root;
 		root = reConectChildren( root );
 		delete nodeToBeDeleted;
 
@@ -79,7 +79,7 @@ bool AVLTree::isEmpty()
 	return root == nullptr;
 }
 
-bool AVLTree::recInsert( Node * n, Node* inserted )
+bool AVLTree::recInsert( AVLTreeNode * n, AVLTreeNode* inserted )
 {
 	if (inserted->value > n->value)
 	{
@@ -135,7 +135,7 @@ bool AVLTree::recInsert( Node * n, Node* inserted )
 	}
 }
 
-bool AVLTree::recFindNodeAndDelete( Node * n, int toBeDeleted )
+bool AVLTree::recFindNodeAndDelete( AVLTreeNode * n, int toBeDeleted )
 {
 	if (toBeDeleted > n->value)
 	{
@@ -144,7 +144,7 @@ bool AVLTree::recFindNodeAndDelete( Node * n, int toBeDeleted )
 			if (n->rightChild->value == toBeDeleted)
 			{
 				// Delete right child
-				Node* nodeToBeDeleted = n->rightChild;
+				AVLTreeNode* nodeToBeDeleted = n->rightChild;
 				n->rightChild = reConectChildren( n->rightChild );
 				delete nodeToBeDeleted;
 				n->height = std::max( getHeight( n->leftChild ), getHeight( n->rightChild ) ) + 1;
@@ -172,7 +172,7 @@ bool AVLTree::recFindNodeAndDelete( Node * n, int toBeDeleted )
 			if (n->leftChild->value == toBeDeleted)
 			{
 				// Delete left child
-				Node* nodeToBeDeleted = n->leftChild;
+				AVLTreeNode* nodeToBeDeleted = n->leftChild;
 				n->leftChild = reConectChildren( n->leftChild );
 				delete nodeToBeDeleted;
 				n->height = std::max( getHeight( n->leftChild ), getHeight( n->rightChild ) ) + 1;
@@ -193,9 +193,9 @@ bool AVLTree::recFindNodeAndDelete( Node * n, int toBeDeleted )
 	}
 }
 
-AVLTree::Node* AVLTree::reConectChildren( Node * n )
+AVLTreeNode* AVLTree::reConectChildren( AVLTreeNode * n )
 {
-	Node* subRoot = new Node();
+	AVLTreeNode* subRoot = new AVLTreeNode();
 
 	if (n->leftChild == nullptr || n->rightChild == nullptr)
 	{
@@ -203,7 +203,7 @@ AVLTree::Node* AVLTree::reConectChildren( Node * n )
 	}
 	else
 	{
-		Node* temp = findNodeWithMinValue( n->rightChild );
+		AVLTreeNode* temp = findNodeWithMinValue( n->rightChild );
 
 		//std::cout << "Min Element found! Value: " << temp->value << std::endl;
 
@@ -217,7 +217,7 @@ AVLTree::Node* AVLTree::reConectChildren( Node * n )
 	return subRoot;
 }
 
-AVLTree::Node* AVLTree::findNodeWithMinValue( Node * n )
+AVLTreeNode* AVLTree::findNodeWithMinValue( AVLTreeNode * n )
 {
 	if (n == nullptr)
 	{
@@ -234,7 +234,7 @@ AVLTree::Node* AVLTree::findNodeWithMinValue( Node * n )
 	}
 }
 
-void AVLTree::inOrderPrint( Node * n )
+void AVLTree::inOrderPrint( AVLTreeNode * n )
 {
 	if (n != nullptr)
 	{
@@ -244,7 +244,7 @@ void AVLTree::inOrderPrint( Node * n )
 	}
 }
 
-int AVLTree::getHeight( Node* n )
+int AVLTree::getHeight( AVLTreeNode* n )
 {
 	if (n == nullptr)
 	{
@@ -256,7 +256,7 @@ int AVLTree::getHeight( Node* n )
 	}
 }
 
-int AVLTree::getBalance( Node * n )
+int AVLTree::getBalance( AVLTreeNode * n )
 {
 	if (n == nullptr)
 	{
@@ -268,10 +268,10 @@ int AVLTree::getBalance( Node * n )
 	}
 }
 
-AVLTree::Node* AVLTree::rightRotate( Node * n )
+AVLTreeNode* AVLTree::rightRotate( AVLTreeNode * n )
 {
-	Node* newSubRoot = n->leftChild;
-	Node* newRightLeft = newSubRoot->rightChild;
+	AVLTreeNode* newSubRoot = n->leftChild;
+	AVLTreeNode* newRightLeft = newSubRoot->rightChild;
 
 	// Right rotate
 	newSubRoot->rightChild = n;
@@ -284,10 +284,10 @@ AVLTree::Node* AVLTree::rightRotate( Node * n )
 	return newSubRoot;
 }
 
-AVLTree::Node* AVLTree::leftRotate( Node * n )
+AVLTreeNode* AVLTree::leftRotate( AVLTreeNode * n )
 {
-	Node* newSubRoot = n->rightChild;
-	Node* newLeftRight = newSubRoot->leftChild;
+	AVLTreeNode* newSubRoot = n->rightChild;
+	AVLTreeNode* newLeftRight = newSubRoot->leftChild;
 
 	// Left rotate
 	newSubRoot->leftChild = n;
@@ -300,7 +300,7 @@ AVLTree::Node* AVLTree::leftRotate( Node * n )
 	return newSubRoot;
 }
 
-AVLTree::Node* AVLTree::reBalance( Node * n )
+AVLTreeNode* AVLTree::reBalance( AVLTreeNode * n )
 {
 	if (n->leftChild != nullptr)
 	{
@@ -339,7 +339,7 @@ AVLTree::Node* AVLTree::reBalance( Node * n )
 	}
 }
 
-void AVLTree::destroyNode( Node * n )
+void AVLTree::destroyNode( AVLTreeNode * n )
 {
 	if (n != nullptr)
 	{

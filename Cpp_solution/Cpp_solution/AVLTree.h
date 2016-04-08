@@ -3,35 +3,13 @@
 #include <algorithm>
 #include <iostream>
 
+#include "BasicDataStructures.h"
+
+using namespace BasicDataStructure;
+
 // Bug: Left - Right and Right - Left cases are not considered
 class AVLTree
 {
-private:
-	struct Node
-	{
-		int value;
-		int height;
-
-		Node* leftChild;
-		Node* rightChild;
-	};
-
-	// Carefull, root node might change due after rotation
-	Node* rightRotate( Node* n );
-	Node* leftRotate( Node* n );
-	// Careful, rebalance must be performed in post order
-	Node* reBalance( Node* n );
-	Node* reConectChildren( Node* n );
-	Node* findNodeWithMinValue( Node* n );
-	bool recInsert( Node* n, Node* inserted );
-	bool recFindNodeAndDelete( Node* n, int toBeDeleted );
-	void inOrderPrint( Node* n );
-	void destroyNode( Node* n );
-	int getHeight( Node* n );
-	int getBalance( Node* n );
-
-	Node* root = nullptr;
-
 public:
 	AVLTree();
 	AVLTree( int rootElement );
@@ -41,4 +19,22 @@ public:
 	bool deleteNode( int toBeDeleted );
 	bool isEmpty();
 	void printTree();
+
+
+private:
+	// Carefull, root node might change after rotation
+	AVLTreeNode* rightRotate( AVLTreeNode* n );
+	AVLTreeNode* leftRotate( AVLTreeNode* n );
+	// Careful, rebalance must be performed in post order
+	AVLTreeNode* reBalance( AVLTreeNode* n );
+	AVLTreeNode* reConectChildren( AVLTreeNode* n );
+	AVLTreeNode* findNodeWithMinValue( AVLTreeNode* n );
+	bool recInsert( AVLTreeNode* n, AVLTreeNode* inserted );
+	bool recFindNodeAndDelete( AVLTreeNode* n, int toBeDeleted );
+	void inOrderPrint( AVLTreeNode* n );
+	void destroyNode( AVLTreeNode* n );
+	int getHeight( AVLTreeNode* n );
+	int getBalance( AVLTreeNode* n );
+
+	AVLTreeNode* root = nullptr;
 };
