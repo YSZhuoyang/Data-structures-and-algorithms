@@ -20,19 +20,25 @@ private:
 	Node* rightRotate( Node* n );
 	Node* leftRotate( Node* n );
 	// Careful, rebalance must be performed in post order
-	Node* reBalance( Node* n, int inserted );
-	void recInsert( Node* n, Node* inserted );
+	Node* reBalance( Node* n );
+	Node* reConectChildren( Node* n );
+	Node* findNodeWithMinValue( Node* n );
+	bool recInsert( Node* n, Node* inserted );
+	bool recFindNodeAndDelete( Node* n, int toBeDeleted );
 	void inOrderPrint( Node* n );
-	void deleteNode( Node* n );
+	void destroyNode( Node* n );
 	int getHeight( Node* n );
 	int getBalance( Node* n );
 
-	Node* root;
+	Node* root = nullptr;
 
 public:
+	AVLTree();
 	AVLTree( int rootElement );
 	~AVLTree();
 
-	void insert( int newElement );
+	bool insert( int newElement );
+	bool deleteNode( int toBeDeleted );
+	bool isEmpty();
 	void printTree();
 };

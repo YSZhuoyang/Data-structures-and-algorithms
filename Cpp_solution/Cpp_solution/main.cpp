@@ -13,13 +13,22 @@ int main()
 	s.maxCoins( v );
 	*/
 
-	AVLTree avlTree( 3 );
+	AVLTree avlTree;
 
-	avlTree.insert( 0 );
-	avlTree.insert( 1 );
-	avlTree.insert( 2 );
-	avlTree.insert( 4 );
-	avlTree.insert( -1 );
+	if (avlTree.insert( 3 ) &&
+		avlTree.insert( 0 ) &&
+		avlTree.insert( 1 ) &&
+		avlTree.insert( 2 ) &&
+		avlTree.insert( 4 ) &&
+		avlTree.insert( -1 ))
+	{
+		std::cout << "Insertion succeeded!" << std::endl;
+	}
+
+	if (avlTree.deleteNode( 1 ))
+	{
+		std::cout << "Deletion succeeded!" << std::endl;
+	}
 
 	avlTree.printTree();
 
