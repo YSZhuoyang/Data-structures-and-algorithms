@@ -2,6 +2,11 @@
 
 
 
+AVLTree::AVLTree()
+{
+
+}
+
 AVLTree::AVLTree( int rootElement )
 {
 	root = new Node();
@@ -13,49 +18,220 @@ AVLTree::AVLTree( int rootElement )
 
 AVLTree::~AVLTree()
 {
-	deleteNode( root );
+	destroyNode( root );
 }
 
-void AVLTree::insert( int newElement )
+bool AVLTree::insert( int newElement )
 {
-	std::cout << "Start inserting value: " << newElement << std::endl;
+	Node* nodeToBeInserted = new Node();
+	nodeToBeInserted->value = newElement;
+	nodeToBeInserted->leftChild = nullptr;
+	nodeToBeInserted->rightChild = nullptr;
+	nodeToBeInserted->height = 0;
 
-	Node* inserted = new Node();
-	inserted->value = newElement;
-	inserted->leftChild = nullptr;
-	inserted->rightChild = nullptr;
-	inserted->height = 0;
+	if (isEmpty())
+	{
+		root = nodeToBeInserted;
 
-	recInsert( root, inserted );
-	root = reBalance( root, newElement );
+		return true;
+	}
+	else
+	{
+		if (recInsert( root, nodeToBeInserted ))
+		{
+			root = reBalance( root );
+
+			return true;
+		}
+
+		return false;
+	}
 }
 
-void AVLTree::recInsert( Node * n, Node* inserted )
+bool AVLTree::deleteNode( int toBeDeleted )
+{
+	if (isEmpty())
+	{
+		return false;
+	}
+	else if (root->value == toBeDeleted)
+	{
+		std::cout << "Delete root node" << std::endl;
+
+		Node* nodeToBeDeleted = root;
+		root = reConectChildren( root );
+		delete nodeToBeDeleted;
+
+		return true;
+	}
+	else
+	{
+		std::cout << "Delete a child node" << std::endl;
+
+		return recFindNodeAndDelete( root, toBeDeleted );
+	}
+
+	root = reBalance( root );
+}
+
+bool AVLTree::isEmpty()
+{
+	return root == nullptr;
+}
+
+bool AVLTree::recInsert( Node * n, Node* inserted )
 {
 	if (inserted->value > n->value)
 	{
 		if (n->rightChild == nullptr)
 		{
 			n->rightChild = inserted;
+			n->height = std::max( getHeight( n->leftChild ), getHeight( n->rightChild ) ) + 1;
+
+			return true;
 		}
 		else
 		{
-			recInsert( n->rightChild, inserted );
+			if (recInsert( n->rightChild, inserted ))
+			{
+				n->height = std::max( getHeight( n->leftChild ), getHeight( n->rightChild ) ) + 1;
+
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 	}
-	else
+	else if (inserted->value < n->value)
 	{
 		if (n->leftChild == nullptr)
 		{
 			n->leftChild = inserted;
+			n->height = std::max( getHeight( n->leftChild ), getHeight( n->rightChild ) ) + 1;
+
+			return true;
 		}
 		else
 		{
-			recInsert( n->leftChild, inserted );
+			if (recInsert( n->leftChild, inserted ))
+			{
+				n->height = std::max( getHeight( n->leftChild ), getHeight( n->rightChild ) ) + 1;
+
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 	}
+	else
+	{
+		std::cout << "Element already exists, duplicates are not allowed!" << std::endl;
 
-	n->height = std::max( getHeight( n->leftChild ), getHeight( n->rightChild ) ) + 1;
+		return false;
+	}
+}
+
+bool AVLTree::recFindNodeAndDelete( Node * n, int toBeDeleted )
+{
+	if (toBeDeleted > n->value)
+	{
+		if (n->rightChild != nullptr)
+		{
+			if (n->rightChild->value == toBeDeleted)
+			{
+				// Delete right child
+				Node* nodeToBeDeleted = n->rightChild;
+				n->rightChild = reConectChildren( n->rightChild );
+				delete nodeToBeDeleted;
+				n->height = std::max( getHeight( n->leftChild ), getHeight( n->rightChild ) ) + 1;
+
+				return true;
+			}
+			else
+			{
+				return recFindNodeAndDelete( n->rightChild, toBeDeleted );
+			}
+		}
+		else
+		{
+			std::cout << "Element " << toBeDeleted << " not found!" << std::endl;
+
+			return false;
+		}
+	}
+	// toBeDeleted will never equal to value of node n
+	// at this stage since it has been compared before
+	else
+	{
+		if (n->leftChild != nullptr)
+		{
+			if (n->leftChild->value == toBeDeleted)
+			{
+				// Delete left child
+				Node* nodeToBeDeleted = n->leftChild;
+				n->leftChild = reConectChildren( n->leftChild );
+				delete nodeToBeDeleted;
+				n->height = std::max( getHeight( n->leftChild ), getHeight( n->rightChild ) ) + 1;
+
+				return true;
+			}
+			else
+			{
+				return recFindNodeAndDelete( n->leftChild, toBeDeleted );
+			}
+		}
+		else
+		{
+			std::cout << "Element " << toBeDeleted << " not found!" << std::endl;
+
+			return false;
+		}
+	}
+}
+
+AVLTree::Node* AVLTree::reConectChildren( Node * n )
+{
+	Node* subRoot = new Node();
+
+	if (n->leftChild == nullptr || n->rightChild == nullptr)
+	{
+		subRoot = (n->leftChild != nullptr) ? n->leftChild : n->rightChild;
+	}
+	else
+	{
+		Node* temp = findNodeWithMinValue( n->rightChild );
+
+		//std::cout << "Min Element found! Value: " << temp->value << std::endl;
+
+		subRoot->value = temp->value;
+		recFindNodeAndDelete( n->rightChild, temp->value );
+		subRoot->rightChild = n->rightChild;
+		subRoot->leftChild = n->leftChild;
+		subRoot->height = std::max( getHeight( subRoot->leftChild ), getHeight( subRoot->rightChild ) ) + 1;
+	}
+
+	return subRoot;
+}
+
+AVLTree::Node* AVLTree::findNodeWithMinValue( Node * n )
+{
+	if (n == nullptr)
+	{
+		return nullptr;
+	}
+	else
+	{
+		while (n->leftChild != nullptr)
+		{
+			n = n->leftChild;
+		}
+
+		return n;
+	}
 }
 
 void AVLTree::inOrderPrint( Node * n )
@@ -124,25 +300,25 @@ AVLTree::Node* AVLTree::leftRotate( Node * n )
 	return newSubRoot;
 }
 
-AVLTree::Node* AVLTree::reBalance( Node * n, int inserted )
+AVLTree::Node* AVLTree::reBalance( Node * n )
 {
 	if (n->leftChild != nullptr)
 	{
-		n->leftChild = reBalance( n->leftChild, inserted );
+		n->leftChild = reBalance( n->leftChild );
 	}
 
 	if (n->rightChild != nullptr)
 	{
-		n->rightChild = reBalance( n->rightChild, inserted );
+		n->rightChild = reBalance( n->rightChild );
 	}
 
 	// Left - right case, make it left - left
-	if (getBalance( n ) > 1 && inserted > n->leftChild->value)
+	if (getBalance( n ) > 1 && getBalance( n->leftChild ) < 0)
 	{
 		n->leftChild = leftRotate( n->leftChild );
 	}
 	// Right - left case, make it right - right
-	else if (getBalance( n ) < -1 && inserted < n->rightChild->value)
+	else if (getBalance( n ) < -1 && getBalance( n->rightChild ) > 0)
 	{
 		n->rightChild = rightRotate( n->rightChild );
 	}
@@ -163,22 +339,25 @@ AVLTree::Node* AVLTree::reBalance( Node * n, int inserted )
 	}
 }
 
-void AVLTree::deleteNode( Node * n )
+void AVLTree::destroyNode( Node * n )
 {
 	if (n != nullptr)
 	{
-		deleteNode( n->leftChild );
-		deleteNode( n->rightChild );
+		destroyNode( n->leftChild );
+		destroyNode( n->rightChild );
 
 		n->leftChild = nullptr;
 		n->rightChild = nullptr;
-		delete( n );
+		delete n;
 	}
 }
 
 void AVLTree::printTree()
 {
-	std::cout << "Root: Height: " << getHeight( root ) << "  Value: " << root->value << std::endl;
+	if (!isEmpty())
+	{
+		std::cout << "Root: Height: " << getHeight( root ) << "  Value: " << root->value << std::endl;
 
-	inOrderPrint( root );
+		inOrderPrint( root );
+	}
 }
