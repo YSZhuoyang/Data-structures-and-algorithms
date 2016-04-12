@@ -55,4 +55,36 @@ public class ReverseLinkedList
         node.next.next = node;
         node.next = null;
     }*/
+
+    /* An alternative using stack, slow, not recommended
+    public ListNode reverseList(ListNode head)
+    {
+        if (head == null || head.next == null)
+        {
+            return head;
+        }
+
+        Stack<ListNode> stack = new Stack<>();
+        ListNode iter = head;
+
+        while (iter != null)
+        {
+            stack.push(iter);
+            iter = iter.next;
+        }
+
+        head = stack.pop();
+        iter = head;
+
+        while (!stack.isEmpty())
+        {
+            iter.next = stack.pop();
+            iter = iter.next;
+        }
+
+        iter.next = null;
+
+        return head;
+    }
+    */
 }
