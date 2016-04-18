@@ -6,6 +6,7 @@ public class LinkedListCycleII
 
 	// A recommended solution without using extra space, with
 	// two pointers
+	// details see: https://leetcode.com/discuss/95365/java-solution-without-extra-space-with-explanation
 	public ListNode detectCycle(ListNode head)
 	{
 		if(head == null || head.next == null)
