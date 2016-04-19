@@ -4,6 +4,7 @@
 public class CountAndSay
 {
 
+	// My solution beats 48% java submissions
 	public String countAndSay(int n)
 	{
 		if (n <= 0)
@@ -12,14 +13,18 @@ public class CountAndSay
 		}
 
 		String axiom = "1";
+		int iterCount = n - 1;
+		int len;
+		StringBuilder sb = new StringBuilder();
 
-		for (int i = 0; i < n - 1; i++)
+		for (int i = 0; i < iterCount; i++)
 		{
 			int count = 1;
 			char number = axiom.charAt(0);
-			String newStr = "";
+			len = axiom.length();
+			sb.setLength(0);
 
-			for (int j = 1; j < axiom.length(); j++)
+			for (int j = 1; j < len; j++)
 			{
 				// Count
 				if (axiom.charAt(j) == axiom.charAt(j - 1))
@@ -29,16 +34,18 @@ public class CountAndSay
 				// Say
 				else
 				{
-					newStr = newStr + count + number;
+					sb.append(count);
+					sb.append(number);
 
 					count = 1;
 					number = axiom.charAt(j);
 				}
 			}
 
-			newStr = newStr + count + number;
+			sb.append(count);
+			sb.append(number);
 
-			axiom = newStr;
+			axiom = sb.toString();
 		}
 
 		return axiom;
