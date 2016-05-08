@@ -14,7 +14,7 @@ public class FourSum
         int index = 0;
         ArrayList<List<Integer>> results = new ArrayList<>();
 
-        if(nums.length < 4)
+        if (nums.length < 4)
         {
             return results;
         }

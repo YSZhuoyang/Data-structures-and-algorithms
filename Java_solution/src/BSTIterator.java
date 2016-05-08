@@ -4,13 +4,13 @@ import java.util.Stack;
 /**
  * Created by oscar on 3/26/16.
  */
-public class BTreeIterator
+public class BSTIterator
 {
     private Stack<TreeNode> stack;
     private ArrayDeque<TreeNode> queue;
 
     // My solution which beats 80.53% java submissions
-    public BTreeIterator(TreeNode root)
+    public BSTIterator(TreeNode root)
     {
         queue = new ArrayDeque<>();
 

@@ -10,7 +10,7 @@ public class BTreeInorderTraversal
     // My fastest solution without using stack
     public List<Integer> inorderTraversal(TreeNode root)
     {
-        ArrayList<Integer> result = new ArrayList<Integer>();
+        ArrayList<Integer> result = new ArrayList<>();
 
         inorderTraversal(result, root);
 
@@ -31,14 +31,14 @@ public class BTreeInorderTraversal
     /*public List<Integer> inorderTraversal(TreeNode root)
     {
         List<Integer> result = new ArrayList<>();
-        Stack<TreeNode> stack = new Stack<TreeNode>();
 
-        TreeNode p = root;
-
-        if (p == null)
+        if (root == null)
         {
             return result;
         }
+
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        TreeNode p = root;
 
         while (!stack.isEmpty() || p != null)
         {

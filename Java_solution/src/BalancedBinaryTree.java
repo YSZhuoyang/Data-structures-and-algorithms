@@ -9,7 +9,7 @@ public class BalancedBinaryTree
 
     // A good one with clear and easy to understand idea
     // helper function to find the depth of a tree from a given node
-    /*public Integer depthOfTree (TreeNode root)
+    /*public Integer depthOfTree(TreeNode root)
     {
         if(root == null)
             return 0;
@@ -39,12 +39,12 @@ public class BalancedBinaryTree
 
     // A very fast one (use height of -1 to represent not balance,
     // thus there is no repeated computing on the same path)
-    /*public boolean isBalanced (TreeNode root)
+    /*public boolean isBalanced(TreeNode root)
     {
         return getHeight(root) != -1;
     }
 
-    public int getHeight (TreeNode root)
+    public int getHeight(TreeNode root)
     {
         if(root == null)
         {

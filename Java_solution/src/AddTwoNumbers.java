@@ -2,6 +2,8 @@
 public class AddTwoNumbers
 {
 
+    // Two lists store the digits of each number in a reversed order.
+	// Refer to 'addBinaries' solution to improve this solution.
     public ListNode addTwoNumbers(ListNode l1, ListNode l2)
     {
         ListNode res = new ListNode(0);

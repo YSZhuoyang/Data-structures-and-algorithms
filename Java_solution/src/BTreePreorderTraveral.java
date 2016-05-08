@@ -11,7 +11,7 @@ public class BTreePreorderTraveral
     // My solution which beats 70% java submissions
     public List<Integer> preorderTraversal(TreeNode root)
     {
-        ArrayList<Integer> result = new ArrayList<Integer>();
+        ArrayList<Integer> result = new ArrayList<>();
 
         preorderTraversal(result, root);
 
@@ -29,7 +29,42 @@ public class BTreePreorderTraveral
         }
     }
 
-    // My solution using a stack
+    /* My solution using a stack and iteration
+    public List<Integer> preorderTraversal(TreeNode root)
+    {
+        ArrayList<Integer> list = new ArrayList<>();
+
+        if (root == null)
+        {
+            return list;
+        }
+
+        TreeNode p = root;
+
+        Stack<TreeNode> s = new Stack<>();
+        s.push(p);
+
+        while (!s.isEmpty())
+        {
+            p = s.pop();
+            list.add(p.val);
+
+            if (p.right != null)
+            {
+                s.push(p.right);
+            }
+
+            if (p.left != null)
+            {
+                s.push(p.left);
+            }
+        }
+
+        return list;
+    }
+     */
+
+    // My solution using a stack and recursion
     /*public List<Integer> preorderTraversal(TreeNode root)
     {
         ArrayList<Integer> result = new ArrayList<Integer>();
