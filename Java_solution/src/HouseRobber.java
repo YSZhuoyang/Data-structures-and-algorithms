@@ -7,6 +7,7 @@ public class HouseRobber
 {
 	HashMap<Integer, Integer> memo = new HashMap<>();
 
+	// My solution using dynamic programming
 	public int rob(int[] nums)
 	{
 		if (nums == null || nums.length == 0)
