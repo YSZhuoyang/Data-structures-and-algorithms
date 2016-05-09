@@ -7,7 +7,9 @@ public class HouseRobber
 {
 	HashMap<Integer, Integer> memo = new HashMap<>();
 
-	// My solution using dynamic programming
+	// My solution using dynamic programming (note: when using dynamic programming,
+	// the graph must be acyclic, check base cases like 0, 1, or 2 sometimes,
+	// and check null, empty cases in the beginning)
 	public int rob(int[] nums)
 	{
 		if (nums == null || nums.length == 0)
@@ -19,10 +21,7 @@ public class HouseRobber
 			return nums[0];
 		}
 
-		int resultA = rob(nums, nums.length - 1);
-		int resultB = rob(nums, nums.length - 2);
-
-		return resultA > resultB ? resultA : resultB;
+		return rob(nums, nums.length - 1);
 	}
 
 	private int rob(int[] nums, int end)
