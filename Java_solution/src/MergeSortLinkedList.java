@@ -4,6 +4,9 @@
 public class MergeSortLinkedList
 {
 
+    // Disadvantages in the case of sorting a linked list:
+    // 1. Need to find the middle point, which takes more time.
+	// 2. More memory consumption (regardless of sorting a linked list or an array).
     public ListNode sortList(ListNode head)
     {
         if (head == null || head.next == null)
