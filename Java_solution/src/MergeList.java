@@ -25,7 +25,7 @@ public class MergeList
 
         while (l1 != null || l2 != null)
         {
-            if (l2 == null || (l1 != null && l2 != null && l1.val < l2.val))
+            if (l2 == null || (l1 != null && l1.val < l2.val))
             {
                 mergedPointer.next = l1;
                 l1 = l1.next;

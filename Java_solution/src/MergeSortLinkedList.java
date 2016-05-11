@@ -4,9 +4,10 @@
 public class MergeSortLinkedList
 {
 
-    // Disadvantages in the case of sorting a linked list:
+    // Disadvantages of merge sort for sorting a linked list:
     // 1. Need to find the middle point, which takes more time.
-	// 2. More memory consumption (regardless of sorting a linked list or an array).
+	// 2. Involves more list pointer manipulations and function calls.
+	// 3. More memory consumption (regardless of sorting a linked list or an array).
     public ListNode sortList(ListNode head)
     {
         if (head == null || head.next == null)
@@ -14,40 +15,18 @@ public class MergeSortLinkedList
             return head;
         }
 
-        mergeSort(head);
+	    ListNode leftHalf = new ListNode(0);
+	    ListNode rightHalf = new ListNode(0);
 
-        return head;
+        split(head, leftHalf, rightHalf);
+
+	    leftHalf = sortList(leftHalf.next);
+	    rightHalf = sortList(rightHalf.next);
+
+	    return merge(leftHalf, rightHalf);
     }
 
-    public void mergeSort(ListNode list)
-    {
-        ListNode leftHalf = new ListNode(0);
-        ListNode rightHalf = new ListNode(0);
-
-        if (list == null || list.next == null)
-        {
-            return;
-        }
-
-        split(list, leftHalf, rightHalf);
-
-        mergeSort(leftHalf);
-        mergeSort(rightHalf);
-
-        merge(list, leftHalf, rightHalf);
-    }
-
-    // For debugging
-    /*public void displayList(ListNode list)
-    {
-        while (list != null)
-        {
-            System.out.println("list: : " + list.val);
-            list = list.next;
-        }
-    }*/
-
-    public void split(ListNode origin, ListNode left, ListNode right)
+    private void split(ListNode origin, ListNode left, ListNode right)
     {
         ListNode slow = origin;
         ListNode fast = origin;
@@ -67,60 +46,37 @@ public class MergeSortLinkedList
             }
         }
 
-        right.val = slow.next.val;
-        right.next = slow.next.next;
+	    // Get the right half of the list
+	    right.next = slow.next;
 
-        slow.next = null;   // Place this line before assignment of 'left' or after assignment of 'left'
-                            // will cause errors
-        left.val = origin.val;
-        left.next = origin.next;
+	    // Get the left half of the list
+	    slow.next = null;
+	    left.next = origin;
     }
 
-    public void merge(ListNode merged, ListNode left, ListNode right)
+	// Note that in merge sort, the merge part does not need to
+	// consider the case where left and right list are empty.
+    public ListNode merge(ListNode left, ListNode right)
     {
-        ListNode leftRef = left;
-        ListNode rightRef = right;
-        ListNode sorted;
+	    ListNode mergedPointer = new ListNode(0);
+	    ListNode merged = mergedPointer;
 
-        if (leftRef.val < rightRef.val)
-        {
-            sorted = new ListNode(leftRef.val);
-            leftRef = leftRef.next;
-        }
-        else
-        {
-            sorted = new ListNode(rightRef.val);
-            rightRef = rightRef.next;
-        }
+	    while (left != null || right != null)
+	    {
+		    if (right == null || (left != null && left.val < right.val))
+		    {
+			    mergedPointer.next = left;
+			    left = left.next;
+		    }
+		    else
+		    {
+			    mergedPointer.next = right;
+			    right = right.next;
+		    }
 
-        ListNode sortedRef = sorted;
+		    mergedPointer = mergedPointer.next;
+	    }
 
-        while (leftRef != null && rightRef != null)
-        {
-            if (leftRef.val < rightRef.val)
-            {
-                sortedRef.next = new ListNode(leftRef.val);
-                leftRef = leftRef.next;
-            }
-            else
-            {
-                sortedRef.next = new ListNode(rightRef.val);
-                rightRef = rightRef.next;
-            }
-
-            sortedRef = sortedRef.next;
-        }
-
-        if (leftRef != null)
-        {
-            sortedRef.next = leftRef;
-        }
-        else
-        {
-            sortedRef.next = rightRef;
-        }
-
-        merged.val = sorted.val;
-        merged.next = sorted.next;
+	    return merged.next;
     }
 }
