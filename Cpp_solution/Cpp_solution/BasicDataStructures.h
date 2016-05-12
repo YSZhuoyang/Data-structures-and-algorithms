@@ -6,6 +6,18 @@ namespace BasicDataStructure
 	{
 		int value;
 		ListNode* next;
+
+		ListNode()
+		{
+			value = -1;
+			next = nullptr;
+		}
+
+		ListNode( int n )
+		{
+			value = n;
+			next = nullptr;
+		}
 	};
 
 	struct TreeNode

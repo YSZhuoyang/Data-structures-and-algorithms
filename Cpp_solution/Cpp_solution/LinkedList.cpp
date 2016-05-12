@@ -8,13 +8,10 @@ LinkedList::LinkedList()
 
 LinkedList::LinkedList( int initialElement )
 {
-	head = new ListNode();
-	head->value = initialElement;
-	head->next = nullptr;
+	head = new ListNode( initialElement );
 	tail = head;
 	size = 1;
 }
-
 
 LinkedList::~LinkedList()
 {
@@ -66,15 +63,12 @@ bool LinkedList::append( int value )
 {
 	if (isEmpty())
 	{
-		head = new ListNode();
-		head->value = value;
+		head = new ListNode( value );
 		tail = head;
 	}
 	else
 	{
-		tail->next = new ListNode();
-		tail->next->value = value;
-		tail->next->next = nullptr;
+		tail->next = new ListNode( value );
 		tail = tail->next;
 	}
 
@@ -270,9 +264,20 @@ int LinkedList::getSize()
 
 void LinkedList::sort()
 {
-	if (isEmpty() || head->next == nullptr)
+	// Quick sort
+	head = quickSort( head );
+	repositionTail();
+
+	/*------------------------*/
+	// Insertion sort
+	//head = insertionSort( head );
+}
+
+ListNode* LinkedList::insertionSort( ListNode* head )
+{
+	if (head == nullptr || head->next == nullptr)
 	{
-		return;
+		return head;
 	}
 
 	ListNode* sortedHead = head;
@@ -313,8 +318,85 @@ void LinkedList::sort()
 		}
 	}
 
-	head = sortedHead;
+	// Reposition tail pointer
 	tail = sortedTail;
+
+	return sortedHead;
+}
+
+ListNode* LinkedList::quickSort( ListNode* head )
+{
+	if (head == nullptr || head->next == nullptr)
+	{
+		return head;
+	}
+
+	ListNode* pivot = head;
+	ListNode* iterator = head->next;
+
+	// Divide the list into 3 parts:
+	// a list where the values of all nodes are smaller than the pivot value, 
+	// a list where the values of all nodes are equal to the pivot value, 
+	// a list where the values of all nodes are larger than the pivot value, 
+	ListNode* left = new ListNode();
+	ListNode* right = new ListNode();
+	ListNode* middle = pivot;
+
+	ListNode* lIter = left;
+	ListNode* rIter = right;
+	ListNode* mIter = middle;
+
+	while (iterator != nullptr)
+	{
+		if (iterator->value < pivot->value)
+		{
+			lIter->next = iterator;
+			lIter = lIter->next;
+		}
+		else if (iterator->value > pivot->value)
+		{
+			rIter->next = iterator;
+			rIter = rIter->next;
+		}
+		else
+		{
+			mIter->next = iterator;
+			mIter = mIter->next;
+		}
+
+		iterator = iterator->next;
+	}
+
+	lIter->next = nullptr;
+	rIter->next = nullptr;
+	mIter->next = nullptr;
+
+	// Sort left part and right part
+	left = quickSort( left->next );
+	right = quickSort( right->next );
+
+	// Re-connect lists
+	mIter->next = right;
+
+	if (left != nullptr)
+	{
+		lIter = left;
+
+		// Get the tail of the left part
+		while (lIter->next != nullptr)
+		{
+			lIter = lIter->next;
+		}
+
+		// Re-connect left part and middle part
+		lIter->next = middle;
+
+		return left;
+	}
+	else
+	{
+		return middle;
+	}
 }
 
 void LinkedList::printList()

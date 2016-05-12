@@ -32,6 +32,9 @@ private:
 	void repositionTail();
 	void destroyNode( ListNode* n );
 
+	ListNode* quickSort( ListNode* head );
+	ListNode* insertionSort( ListNode* head );
+
 	ListNode* head		=		nullptr;
 	ListNode* tail		=		nullptr;
 	int size			=		0;

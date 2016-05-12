@@ -48,6 +48,14 @@ int main()
 	list.append( 1 );
 	list.append( -1 );
 
+	printf( "\n\nBefore sorted: \n\n" );
+	list.printList();
+
+	list.sort();
+
+	printf( "\n\nAfter sorted: \n\n" );
+	list.printList();
+
 	printf( "\n\nBefore deletion by index: \n\n" );
 	list.printList();
 
