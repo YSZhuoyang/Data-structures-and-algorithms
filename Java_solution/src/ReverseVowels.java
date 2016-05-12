@@ -1,10 +1,14 @@
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Stack;
 
 /**
  * Created by oscar on 5/11/16.
  */
 public class ReverseVowels
 {
+
+	// My solution which takes 19 ms on leetcode.
 	public String reverseVowels(String s)
 	{
 		if (s == null || s.isEmpty())
@@ -12,23 +16,22 @@ public class ReverseVowels
 			return "";
 		}
 
-		char[] charArray = s.toCharArray();
-		ArrayList<Integer> originalVowels = new ArrayList<>();
-		ArrayList<Character> reversedVowels = new ArrayList<>();
+		ArrayDeque<Integer> originalVowels = new ArrayDeque<>();
+		Stack<Character> reversedVowels = new Stack<>();
 		StringBuilder sb = new StringBuilder(s);
 
-		for (int i = 0; i < s.length(); i++)
+		for (int i = 0; i < sb.length(); i++)
 		{
-			if (isVowel(charArray[i]))
+			if (isVowel(sb.charAt(i)))
 			{
 				originalVowels.add(i);
-				reversedVowels.add(0, charArray[i]);
+				reversedVowels.push(sb.charAt(i));
 			}
 		}
 
-		for (int i = 0; i < originalVowels.size(); i++)
+		while (!originalVowels.isEmpty())
 		{
-			sb.setCharAt(originalVowels.get(i), reversedVowels.get(i));
+			sb.setCharAt(originalVowels.pop(), reversedVowels.pop());
 		}
 
 		return sb.toString();
