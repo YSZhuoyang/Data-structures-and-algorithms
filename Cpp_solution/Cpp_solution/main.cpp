@@ -2,6 +2,7 @@
 #include "LinkedList.h"
 #include "BurstBalloons.h"
 #include "Stack.h"
+#include "Queue.h"
 
 
 int main()
@@ -15,6 +16,25 @@ int main()
 
 	s.maxCoins( v );
 	*/
+
+	/* Test queue implemented with array */
+	Queue queue;
+
+	queue.printQueue();
+
+	queue.enQueue( 1 );
+	queue.enQueue( 2 );
+	queue.enQueue( -1 );
+
+	queue.printQueue();
+
+	cout << "Pop out: " << queue.deQueue() << endl;
+
+	queue.printQueue();
+
+	//cout << "Pop out: " << queue.deQueue() << endl;
+
+	//queue.printQueue();
 
 	/* Test AVL Tree */
 	printf( "\nTest AVL Tree: \n\n" );
