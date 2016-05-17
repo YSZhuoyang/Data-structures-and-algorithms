@@ -1,3 +1,6 @@
+//import java.util.regex.Matcher;
+//import java.util.regex.Pattern;
+
 /**
  * Created by oscar on 4/4/16.
  */
@@ -9,16 +12,8 @@ public class PowerOfTwo
     // Count number of bit 1 using bit manipulation
     public boolean isPowerOfTwo(int n)
     {
-        int count = 0;
-
         // Be careful, n must be greater than 0
-        while (n > 0)
-        {
-            n = n & (n - 1);
-            count++;
-        }
-
-        return count == 1;
+        return n > 0 && (n & (n - 1)) == 0;
     }
 
     /* A very good alternative
@@ -36,6 +31,24 @@ public class PowerOfTwo
         }
 
         return n == 1;
+    }*/
+
+    /* An interesting solution using regular expression
+    public boolean isPowerOfFour(int num)
+    {
+        if (num > 0)
+        {
+            String bString = Integer.toBinaryString(num);
+            System.out.println(bString);
+
+            String pattern = "^1(0)*$";
+            Pattern r = Pattern.compile(pattern);
+            Matcher m = r.matcher(bString);
+
+            return m.find();
+        }
+
+        return false;
     }*/
 
     /* An alternative
