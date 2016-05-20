@@ -8,7 +8,55 @@ import java.util.List;
  */
 public class SubsetsII
 {
-    // My solution, exceeded time limit
+
+	// My second solution using BTree construction (DFS),
+	// which beats 83% java submissions
+	public List<List<Integer>> subsetsWithDup(int[] nums)
+	{
+		List<List<Integer>> res = new ArrayList<>();
+
+		if (nums == null || nums.length == 0)
+		{
+			return res;
+		}
+
+		Arrays.sort(nums);
+
+		buildTree(res, new ArrayList<>(), nums, 0, 0);
+
+		return res;
+	}
+
+	// The attribute level is equal to the length of lists added in this level of the tree,
+	// right is the start index for adding new elements
+	private void buildTree(List<List<Integer>> lists, List<Integer> list, int[] nums, int level, int right)
+	{
+		if (level == 0)
+		{
+			lists.add(list);
+			buildTree(lists, list, nums, 1, 0);
+
+			return;
+		}
+
+		for (int i = right; i < nums.length; i++)
+		{
+			if (i > right && nums[i] == nums[i - 1])
+			{
+				continue;
+			}
+
+			// Duplicate old elements into a new list
+			List<Integer> newList = new ArrayList<>();
+			newList.addAll(list);
+			newList.add(nums[i]);
+			lists.add(newList);
+
+			buildTree(lists, newList, nums, level + 1, i + 1);
+		}
+	}
+
+    /* My first solution, which exceeds time limit
     public List<List<Integer>> subsetsWithDup(int[] nums)
     {
         List<List<Integer>> result = new ArrayList<>();
@@ -79,9 +127,9 @@ public class SubsetsII
         }
 
         return false;
-    }
+    }*/
 
-    // Accepted solution as a good reference
+    /* Accepted solution as a good reference
     private class SubsetsIIRef
     {
         private List<List<Integer>> res = new ArrayList<>();
@@ -109,5 +157,5 @@ public class SubsetsII
                 }
             }
         }
-    }
+    }*/
 }
