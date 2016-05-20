@@ -22,16 +22,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="BinaryTreePath.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/BinaryTreePath.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="InsersionSortList.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/InsersionSortList.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -65,7 +55,7 @@
       <file leaf-file-name="PowerOfTwo.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/PowerOfTwo.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
+            <state relative-caret-position="324">
               <caret line="19" column="38" selection-start-line="19" selection-start-column="38" selection-end-line="19" selection-end-column="38" />
               <folding>
                 <element signature="e#0#1332#0" expanded="true" />
@@ -74,12 +64,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MergeSortedArray.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MergeSortedArray.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/MergeSortedArray.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="54">
-              <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+            <state relative-caret-position="180">
+              <caret line="10" column="61" selection-start-line="10" selection-start-column="61" selection-end-line="10" selection-end-column="61" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IntersectionOfTwoArrays.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/IntersectionOfTwoArrays.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="414">
+              <caret line="26" column="67" selection-start-line="26" selection-start-column="67" selection-end-line="26" selection-end-column="67" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -161,6 +163,7 @@
         <option value="$PROJECT_DIR$/src/PowerOfFour.java" />
         <option value="$PROJECT_DIR$/src/PowerOfTwo.java" />
         <option value="$PROJECT_DIR$/src/MergeSortedArray.java" />
+        <option value="$PROJECT_DIR$/src/IntersectionOfTwoArrays.java" />
       </list>
     </option>
   </component>
@@ -196,7 +199,6 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -231,6 +233,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -544,14 +547,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/BinaryTreePath.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/BurstBalloons.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
@@ -869,7 +864,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/PowerOfTwo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
+        <state relative-caret-position="324">
           <caret line="19" column="38" selection-start-line="19" selection-start-column="38" selection-end-line="19" selection-end-column="38" />
           <folding>
             <element signature="e#0#1332#0" expanded="true" />
@@ -913,9 +908,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/MergeSortedArray.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="54">
-          <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+        <state relative-caret-position="180">
+          <caret line="10" column="61" selection-start-line="10" selection-start-column="61" selection-end-line="10" selection-end-column="61" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/IntersectionOfTwoArrays.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="26" column="67" selection-start-line="26" selection-start-column="67" selection-end-line="26" selection-end-column="67" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
