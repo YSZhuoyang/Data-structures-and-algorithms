@@ -21,23 +21,16 @@ public class SubsetsII
 		}
 
 		Arrays.sort(nums);
-
-		buildTree(res, new ArrayList<>(), nums, 0, 0);
+		buildTree(res, new ArrayList<>(), nums, 0);
 
 		return res;
 	}
 
 	// The attribute level is equal to the length of lists added in this level of the tree,
 	// right is the start index for adding new elements
-	private void buildTree(List<List<Integer>> lists, List<Integer> list, int[] nums, int level, int right)
+	private void buildTree(List<List<Integer>> lists, List<Integer> list, int[] nums, int right)
 	{
-		if (level == 0)
-		{
-			lists.add(list);
-			buildTree(lists, list, nums, 1, 0);
-
-			return;
-		}
+		lists.add(list);
 
 		for (int i = right; i < nums.length; i++)
 		{
@@ -47,12 +40,10 @@ public class SubsetsII
 			}
 
 			// Duplicate old elements into a new list
-			List<Integer> newList = new ArrayList<>();
-			newList.addAll(list);
+			List<Integer> newList = new ArrayList<>(list);
 			newList.add(nums[i]);
-			lists.add(newList);
 
-			buildTree(lists, newList, nums, level + 1, i + 1);
+			buildTree(lists, newList, nums, i + 1);
 		}
 	}
 
@@ -129,8 +120,8 @@ public class SubsetsII
         return false;
     }*/
 
-    /* Accepted solution as a good reference
-    private class SubsetsIIRef
+    /* Accepted solution as a good reference (same idea as my second one)
+    private class SubsetsII
     {
         private List<List<Integer>> res = new ArrayList<>();
 
