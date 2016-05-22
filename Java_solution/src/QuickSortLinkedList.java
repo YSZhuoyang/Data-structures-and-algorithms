@@ -4,8 +4,8 @@
 public class QuickSortLinkedList
 {
 
-	// Quick sort turned out to be one of the best solutions for sorting
-	// linked lists in terms of performance
+	// Quick sort turned out to be one of the fastest solutions for sorting
+	// linked lists in terms of performance.
 	// An elegant solution which beats 98% java submissions
 	public ListNode sortList(ListNode head)
 	{
@@ -19,7 +19,7 @@ public class QuickSortLinkedList
 
 		// Divide the list into three parts:
 		// a list where values of nodes are smaller than pivot value,
-		// a list where values of nodes are larger than pivot value and
+		// a list where values of nodes are greater than pivot value and
 		// a list where values of nodes are equal to pivot value
 		ListNode small = new ListNode(-1);
 		ListNode large = new ListNode(-1);
@@ -54,7 +54,7 @@ public class QuickSortLinkedList
 		lPointer.next = null;
 		mPointer.next = null;
 
-		// Sort small list and large list
+		// Sort small value list and large value list
 		small = sortList(small.next);
 		large = sortList(large.next);
 
@@ -63,7 +63,7 @@ public class QuickSortLinkedList
 
 		if (small != null)
 		{
-			// Get the tail of sorted small list
+			// Get the tail of sorted small value list
 			sPointer = small;
 
 			while (sPointer.next != null)

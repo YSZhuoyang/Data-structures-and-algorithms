@@ -11,7 +11,7 @@ public class MergeSortedArray
 	// Note that although we can put those if else into while
 	// loops to reduce lines of code and make it easier to read,
 	// it will also slow down the performance since there will be
-	// to many jump operations after compiling the code, which will
+	// too many jump operations after compiling the code, which will
 	// cost more time and make it harder for compiler to perform
 	// optimizations since compiler is like to loose information
 	// every time it hits conditional statements.
@@ -21,20 +21,13 @@ public class MergeSortedArray
 		{
 			return;
 		}
-		else if (m == 0)
-		{
-			for (int i = 0; i < n; i++)
-			{
-				nums1[i] = nums2[i];
-			}
-
-			return;
-		}
 
 		int index = m + n - 1;
 		int indexArr1 = m - 1;
 		int indexArr2 = n - 1;
 
+		// Go through two arrays backwards until one array is completely
+		// traversed
 		while (index >= 0)
 		{
 			if (indexArr2 < 0 || indexArr1 < 0)
@@ -52,6 +45,7 @@ public class MergeSortedArray
 			}
 		}
 
+		// Insert the rest elements of another array
 		if (indexArr2 < 0)
 		{
 			while (index >= 0)
@@ -81,7 +75,7 @@ public class MergeSortedArray
 		int newLen = m;
 		ArrayDeque<Integer> toBeInserted = new ArrayDeque<>();
 
-		// Insert elements smaller than largest in nums1
+		// Insert elements smaller than the largest one of nums1
 		for (int i = 0; i < newLen; i++)
 		{
 			while (indexNums2 < n && i < newLen && nums2[indexNums2] > nums1[i])

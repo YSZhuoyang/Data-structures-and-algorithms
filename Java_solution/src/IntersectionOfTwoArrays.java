@@ -7,7 +7,7 @@ import java.util.HashMap;
 public class IntersectionOfTwoArrays
 {
 
-	// My solution
+	// My solution which takes 6 ms
 	public int[] intersection(int[] nums1, int[] nums2)
 	{
 		if (nums1 == null || nums2 == null || nums1.length == 0 || nums2.length == 0)
@@ -18,7 +18,7 @@ public class IntersectionOfTwoArrays
 		HashMap<Integer, Integer> memo = new HashMap<>();
 		ArrayDeque<Integer> intersection = new ArrayDeque<>();
 
-		// Storing the first array into memo
+		// Store the first array into memo
 		for (int element : nums1)
 		{
 			memo.put(element, 0);
@@ -28,7 +28,7 @@ public class IntersectionOfTwoArrays
 		// And store them into a queue
 		for (int element : nums2)
 		{
-			if (memo.containsKey(element) && memo.get(element) == 0)
+			if (memo.get(element) != null && memo.get(element) == 0)
 			{
 				memo.put(element, 1);
 				intersection.add(element);
@@ -37,10 +37,11 @@ public class IntersectionOfTwoArrays
 
 		// Construct an integer array as output
 		int[] res = new int[intersection.size()];
+		int i = 0;
 
-		for (int i = 0; i < res.length; i++)
+		for (int ele : intersection)
 		{
-			res[i] = intersection.pop();
+			res[i++] = ele;
 		}
 
 		return res;

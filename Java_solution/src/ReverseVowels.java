@@ -16,7 +16,12 @@ public class ReverseVowels
 			return "";
 		}
 
-		ArrayDeque<Integer> originalVowels = new ArrayDeque<>();
+		// Perform two traverses.
+		// First traverse: go through the given string, store index of
+		// each vowel into a queue, store each vowel character into a stack.
+		// Second traverse: go through vowels using their indices, and
+		// pop out vowel characters in a reversed order using the stack.
+		ArrayDeque<Integer> originalVowelIndices = new ArrayDeque<>();
 		Stack<Character> reversedVowels = new Stack<>();
 		StringBuilder sb = new StringBuilder(s);
 
@@ -24,14 +29,14 @@ public class ReverseVowels
 		{
 			if (isVowel(sb.charAt(i)))
 			{
-				originalVowels.add(i);
+				originalVowelIndices.add(i);
 				reversedVowels.push(sb.charAt(i));
 			}
 		}
 
-		while (!originalVowels.isEmpty())
+		while (!originalVowelIndices.isEmpty())
 		{
-			sb.setCharAt(originalVowels.pop(), reversedVowels.pop());
+			sb.setCharAt(originalVowelIndices.pop(), reversedVowels.pop());
 		}
 
 		return sb.toString();

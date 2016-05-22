@@ -4,44 +4,43 @@
 public class ImplementStrStr
 {
 
-	// My solution which beats 52% java submissions.
+	// My solution which beats 63.97% java submissions.
 	// Using String.indexOf() is very fast.
 	public int strStr(String haystack, String needle)
 	{
-		if (haystack == null || needle == null)
+		if (haystack == null || needle == null || needle.length() > haystack.length())
 		{
 			return -1;
 		}
-		else if (haystack.isEmpty() || needle.isEmpty() || needle.length() > haystack.length())
+		else if (needle.isEmpty())
 		{
-			if (needle.isEmpty())
-			{
-				return 0;
-			}
-			else
-			{
-				return -1;
-			}
+			return 0;
 		}
 
+		// Traversing a character array is much faster
+		// than Traversing a string
+		char[] hayArr = haystack.toCharArray();
+		char[] neeArr = needle.toCharArray();
+
 		int newStart = 0;
-		int hayLen = haystack.length();
-		int neeLen = needle.length();
+		int hayLen = hayArr.length;
+		int neeLen = neeArr.length;
+
 		boolean newStartFound = false;
 
 		for (int i = 0; i <= hayLen - neeLen; i++)
 		{
-			if (haystack.charAt(i) == needle.charAt(0))
+			if (hayArr[i] == neeArr[0])
 			{
 				for (int j = 0; j < neeLen; j++)
 				{
-					if (!newStartFound && j > 0 && needle.charAt(j) == needle.charAt(0))
+					if (!newStartFound && j > 0 && neeArr[j] == neeArr[0])
 					{
 						newStart = i + j;
 						newStartFound = true;
 					}
 
-					if (haystack.charAt(i + j) != needle.charAt(j))
+					if (hayArr[i + j] != neeArr[j])
 					{
 						if (!newStartFound)
 						{

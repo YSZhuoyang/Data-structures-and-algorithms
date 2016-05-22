@@ -7,9 +7,9 @@
 public class PowerOfTwo
 {
 
-    // Fastest solution is to build a lookup table
+    // The fastest solution is to build a lookup table
 
-    // Count number of bit 1 using bit manipulation
+    // A fast solution using bit manipulation
     public boolean isPowerOfTwo(int n)
     {
         // Be careful, n must be greater than 0
@@ -22,7 +22,7 @@ public class PowerOfTwo
         return n > 0 && 1073741824 % n == 0;
     }*/
 
-    /* An alternative using bit manipulation
+    /* An alternative using bit manipulation and iteration
     public boolean isPowerOfTwo(int n)
     {
         while (n > 1 && (n & 1) == 0)
@@ -39,8 +39,6 @@ public class PowerOfTwo
         if (num > 0)
         {
             String bString = Integer.toBinaryString(num);
-            System.out.println(bString);
-
             String pattern = "^1(0)*$";
             Pattern r = Pattern.compile(pattern);
             Matcher m = r.matcher(bString);
@@ -51,7 +49,7 @@ public class PowerOfTwo
         return false;
     }*/
 
-    /* An alternative
+    /* An alternative using iteration
     public boolean isPowerOfTwo(int n)
     {
         while (n > 1 && n % 2 == 0)
