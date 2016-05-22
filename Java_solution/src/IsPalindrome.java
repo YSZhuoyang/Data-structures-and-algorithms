@@ -4,24 +4,41 @@
 public class IsPalindrome
 {
 
-    // My solution which beats 44% java submissions
+    // My solution which beats 65.54% java submissions
     public boolean isPalindrome(String s)
     {
+        if (s == null)
+        {
+            return false;
+        }
+
+        s = s.trim();
+
         if (s.isEmpty())
         {
             return true;
         }
 
-        s = s.toLowerCase();
+        char[] cArray = s.toLowerCase().toCharArray();
         int left = 0;
-        int right = s.length() - 1;
+        int right = cArray.length - 1;
 
         while (left < right)
         {
-            while (left <= right && !isAlphanumeric(s.charAt(left))) left++;
-            while (right >= left && !isAlphanumeric(s.charAt(right))) right--;
+            while (left <= right && !isAlphanumeric(cArray[left]))
+            {
+                left++;
+            }
 
-            if (left <= right && right >= 0 && s.charAt(left) != s.charAt(right)) return false;
+            while (right >= left && !isAlphanumeric(cArray[right]))
+            {
+                right--;
+            }
+
+            if (left <= right && right >= 0 && cArray[left] != cArray[right])
+            {
+                return false;
+            }
 
             left++;
             right--;

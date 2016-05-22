@@ -11,7 +11,6 @@ public class BTreeInorderTraversal
     public List<Integer> inorderTraversal(TreeNode root)
     {
         ArrayList<Integer> result = new ArrayList<>();
-
         inorderTraversal(result, root);
 
         return result;

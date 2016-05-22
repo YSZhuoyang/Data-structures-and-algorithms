@@ -11,8 +11,7 @@ public class BTreePostorderTraveral
     // My solution which beats 70% java submissions
     public List<Integer> postorderTraversal(TreeNode root)
     {
-        ArrayList<Integer> result = new ArrayList<Integer>();
-
+        ArrayList<Integer> result = new ArrayList<>();
         postorderTraversal(result, root);
 
         return result;
@@ -24,7 +23,6 @@ public class BTreePostorderTraveral
         {
             postorderTraversal(list, node.left);
             postorderTraversal(list, node.right);
-
             list.add(node.val);
         }
     }

@@ -22,6 +22,7 @@ public class CountAndSay
 			int count = 1;
 			char number = axiom.charAt(0);
 			len = axiom.length();
+			// Re-initialize string builder
 			sb.setLength(0);
 
 			for (int j = 1; j < len; j++)

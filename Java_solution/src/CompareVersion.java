@@ -7,6 +7,11 @@ public class CompareVersion
     // A recommended solution
     public int compareVersion(String version1, String version2)
     {
+        if (version1 == null || version2 == null)
+        {
+            throw new NullPointerException();
+        }
+
         int l1 = version1.length();
         int l2 = version2.length();
 
@@ -41,6 +46,11 @@ public class CompareVersion
     /* My solution
     public int compareVersion(String version1, String version2)
     {
+	    if (version1 == null || version2 == null)
+        {
+            throw new NullPointerException();
+        }
+
         String[] v1 = version1.split("\\.");
         String[] v2 = version2.split("\\.");
 

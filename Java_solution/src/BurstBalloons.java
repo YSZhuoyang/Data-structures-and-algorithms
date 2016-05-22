@@ -3,8 +3,14 @@
  */
 public class BurstBalloons
 {
+
     public int maxCoins(int[] nums)
     {
+        if (nums == null || nums.length == 0)
+        {
+            return 0;
+        }
+
         int n = nums.length;
         int[][] dp = new int[n + 2][n + 2];
         int[] newNums = new int[n + 2];
