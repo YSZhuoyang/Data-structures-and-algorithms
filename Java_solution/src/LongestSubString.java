@@ -2,16 +2,70 @@ import java.util.HashMap;
 
 /**
  * Created by oscar on 3/1/16.
+ *
+ * Longest substring without repeating characters
  */
 public class LongestSubString
 {
+
+	// My optimized second solution using two pointers which beats 84.65% java submissions
+	// There are two tricks:
+	// 1. An int array was used as a hash map.
+	// 2. Notice that the right pointer always goes forward,
+	//    never goes backward.
+	public int lengthOfLongestSubstring(String s)
+	{
+		if (s == null)
+		{
+			return 0;
+		}
+
+		s = s.trim();
+
+		if (s.isEmpty())
+		{
+			return 0;
+		}
+
+		int rPointer = 0;
+		int max = 0;
+		int len;
+		char[] sArray = s.toCharArray();
+		int[] memo = new int[255];
+
+		// Init array with string characters, set their index to -1
+		for (int i = 0; i < sArray.length; i++)
+		{
+			memo[sArray[i]] = -1;
+		}
+
+		// Notice that 'sArray.length - max' will save some time
+		for (int lPointer = 0; lPointer < sArray.length - max; lPointer++)
+		{
+			while (rPointer < sArray.length && memo[sArray[rPointer]] == -1)
+			{
+				memo[sArray[rPointer++]] = 0;
+			}
+
+			len = rPointer - lPointer;
+
+			if (len > max)
+			{
+				max = len;
+			}
+
+			memo[sArray[lPointer]] = -1;
+		}
+
+		return max;
+	}
 
     // Recommended solution (linear time)
     // The idea is that traversing the string from left to right,
     // check the existence of current character and compare the length
     // of current substring with the distance between repeatedly
     // appeared characters.
-    public int lengthOfLongestSubstringRec(String s)
+    /*public int lengthOfLongestSubstring(String s)
     {
         // The temp array can be considered as a hashmap, where the
         // key is characters of the string and value is the index in
@@ -61,9 +115,9 @@ public class LongestSubString
         }
 
         return maxLen;
-    }
+    }*/
 
-    // My solution
+    /* My first solution
     public int lengthOfLongestSubstring(String s)
     {
         HashMap<Character, Integer> temp = new HashMap<>();
@@ -96,5 +150,5 @@ public class LongestSubString
         }
 
         return max;
-    }
+    }*/
 }

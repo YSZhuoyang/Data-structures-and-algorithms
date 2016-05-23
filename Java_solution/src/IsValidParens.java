@@ -10,7 +10,7 @@ public class IsValidParens
     // Careful: always check whether stack is empty before calling pop()
     public boolean isValid(String s)
     {
-        if (s.isEmpty())
+        if (s == null || s.isEmpty())
         {
             return true;
         }

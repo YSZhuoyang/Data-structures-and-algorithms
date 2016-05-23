@@ -9,7 +9,7 @@ public class LinkedListCycleII
 	// details see: https://leetcode.com/discuss/95365/java-solution-without-extra-space-with-explanation
 	public ListNode detectCycle(ListNode head)
 	{
-		if(head == null || head.next == null)
+		if (head == null || head.next == null)
 		{
 			return null;
 		}

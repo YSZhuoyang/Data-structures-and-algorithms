@@ -4,16 +4,39 @@
 public class LongestCommenPrefix
 {
 
-    // My optimized solution
-    public String longestCommonPrefix(String[] strs)
-    {
-        int len = strs.length;
+	// A faster recommended solution
+	public String longestCommonPrefix(String[] strs)
+	{
+		if (strs == null || strs.length == 0)
+		{
+			return "";
+		}
 
-        if (len == 0)
+		for (int i = 0; i < strs[0].length(); i++)
+		{
+			char c = strs[0].charAt(i);
+
+			for (String s : strs)
+			{
+				if (s.length() <= i || s.charAt(i) != c)
+				{
+					return strs[0].substring(0,i);
+				}
+			}
+		}
+
+		return strs[0];
+	}
+
+    // My optimized solution
+    /*public String longestCommonPrefix(String[] strs)
+    {
+        if (strs == null || strs.length == 0)
         {
             return "";
         }
 
+        int len = strs.length;
         int minLen = strs[0].length();
 
         for (int i = 1; i < len; ++i)
@@ -33,5 +56,5 @@ public class LongestCommenPrefix
         }
 
         return strs[0].substring(0, minLen);
-    }
+    }*/
 }
