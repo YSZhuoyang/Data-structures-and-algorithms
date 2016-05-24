@@ -3,39 +3,27 @@
  */
 public class RotateLinkedList
 {
-    /**
-     * Definition for singly-linked list.
-     */
-    public class ListNode
-    {
-        int val;
-        ListNode next;
 
-        ListNode(int x)
-        {
-            val = x;
-        }
-    }
-
+    // My solution using two pointers
     public ListNode rotateRight(ListNode head, int k)
     {
-        ListNode rightRef = head;
-        ListNode leftTail = head;
-        int i = 0;
-
         if (head == null)
         {
             return head;
         }
 
-        k = k % count(head);
+        k = k % getLength(head);
 
         if (k == 0)
         {
             return head;
         }
 
-        while (i < k && rightRef != null)
+        ListNode rightRef = head;
+        ListNode leftTail = head;
+        int i = 0;
+
+        while (i < k)
         {
             rightRef = rightRef.next;
             i++;
@@ -47,6 +35,7 @@ public class RotateLinkedList
             leftTail = leftTail.next;
         }
 
+	    // Swap left part and right part
         ListNode rightHead = leftTail.next;
         leftTail.next = null;
         rightRef.next = head;
@@ -54,17 +43,17 @@ public class RotateLinkedList
         return rightHead;
     }
 
-    public int count(ListNode list)
+    private int getLength(ListNode list)
     {
-        int len = 0;
+        int count = 0;
 
         while (list != null)
         {
             list = list.next;
-            len++;
+            count++;
         }
 
-        return len;
+        return count;
     }
 
     // For degugging

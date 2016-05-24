@@ -3,10 +3,36 @@
  */
 public class RemoveDuplicatesFromSortedArray
 {
-    // My solution no.1
+
+    // A very good solution which is fast and clean
     public int removeDuplicates(int[] nums)
     {
-        if (nums == null || nums.length < 1)
+	    if (nums == null || nums.length == 0)
+	    {
+		    return 0;
+	    }
+	    else if (nums.length == 1)
+	    {
+		    return 1;
+	    }
+
+	    int cur = 0;
+
+        for (int n : nums)
+        {
+            if (n > nums[cur])
+            {
+                nums[++cur] = n;
+            }
+        }
+
+        return cur + 1;
+    }
+
+    /* My first solution
+    public int removeDuplicates(int[] nums)
+    {
+        if (nums == null || nums.length == 0)
         {
             return 0;
         }
@@ -60,10 +86,10 @@ public class RemoveDuplicatesFromSortedArray
         }
 
         return count;
-    }
+    }*/
 
-    // My solution no.2
-    /*public int removeDuplicates(int[] nums)
+    /* My second solution
+    public int removeDuplicates(int[] nums)
     {
         if (nums == null || nums.length < 1)
         {
@@ -87,7 +113,6 @@ public class RemoveDuplicatesFromSortedArray
             {
                 right++;
             }
-            //System.out.println(right);
 
             left++;
 
@@ -109,21 +134,5 @@ public class RemoveDuplicatesFromSortedArray
         }
 
         return count;
-    }
-
-    // A very good solution as reference
-    public int removeDuplicates(int[] nums)
-    {
-        int cur = 0;
-
-        for (int n : nums)
-        {
-            if(n>nums[cur])
-            {
-                nums[++cur] = n;
-            }
-        }
-
-        return cur + 1;
     }*/
 }

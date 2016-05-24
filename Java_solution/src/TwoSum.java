@@ -6,29 +6,8 @@ import java.util.Map;
  */
 public class TwoSum
 {
-    // My solution
-    public int[] twoSum(int[] nums, int target)
-    {
-        int[] solution = {0, 0};
 
-        for (int i = 0; i < nums.length; i++)
-        {
-            for (int j = i + 1; j < nums.length; j++)
-            {
-                if (nums[i] + nums[j] == target)
-                {
-                    solution[0] = i;
-                    solution[1] = j;
-
-                    return solution;
-                }
-            }
-        }
-
-        return solution;
-    }
-
-    // Shared as a reference
+    // A faster recommended solution
     public int[] twoSumRef(int[] nums, int target)
     {
         int[] result = {0, 0};
@@ -55,4 +34,26 @@ public class TwoSum
 
         return result;
     }
+
+    /* My solution using naive backtracking
+    public int[] twoSum(int[] nums, int target)
+    {
+        int[] solution = {0, 0};
+
+        for (int i = 0; i < nums.length; i++)
+        {
+            for (int j = i + 1; j < nums.length; j++)
+            {
+                if (nums[i] + nums[j] == target)
+                {
+                    solution[0] = i;
+                    solution[1] = j;
+
+                    return solution;
+                }
+            }
+        }
+
+        return solution;
+    }*/
 }

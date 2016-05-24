@@ -3,17 +3,19 @@
  */
 public class LongestPalindromicSubstring
 {
+
+	// My solution which need to be optimized
     public String longestPalindrome(String s)
     {
+        if (s == null || s.length() <= 1)
+        {
+            return s;
+        }
+
         int max = 1;
         int start = 0;
         int end = 1;
         int len;
-
-        if (s.length() == 1)
-        {
-            return s;
-        }
 
         for (int i = 0; i < s.length(); i++)
         {
@@ -21,7 +23,7 @@ public class LongestPalindromicSubstring
             {
                 len = j - i + 1;
 
-                if (len > max && s.charAt(i) == s.charAt(j) && testPalindromic(i + 1, j - 1, s))
+                if (len > max && s.charAt(i) == s.charAt(j) && isPalindromic(i + 1, j - 1, s))
                 {
                     max = len;
                     start = i;
@@ -35,7 +37,7 @@ public class LongestPalindromicSubstring
         return s.substring(start, end + 1);
     }
 
-    public boolean testPalindromic(int start, int end, String s)
+    private boolean isPalindromic(int start, int end, String s)
     {
         int len = end - start + 1;
 
