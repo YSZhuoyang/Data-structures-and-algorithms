@@ -22,6 +22,9 @@ public class StringToInt
 		{
 			return 0;
 		}
+		
+		// Need to check input format
+		// ...
 
 		char character;
 		long integer = 0;
