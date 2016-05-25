@@ -25,10 +25,9 @@ public:
 	void printList();
 
 private:
-	// Careful, after reposition the tail, the next pointer must
-	// point to nullptr, otherwise even the next node is deleted
-	// by calling 'delete', the next pointer will still point to
-	// something
+	// Careful, after reposition the tail, the next pointer of the previous
+	// node must be set to nullptr, otherwise even the next node is deleted
+	// by calling 'delete', the next pointer will still point to something
 	void repositionTail();
 	void destroyNode( ListNode* n );
 
