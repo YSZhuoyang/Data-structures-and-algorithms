@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 /**
  * Created by oscar on 3/2/16.
  */
@@ -28,14 +30,18 @@ public class TestDriver
 
     private static void test2DPathSearch()
     {
-        TwoDimensionalPathSearch twoDPathSearch = new TwoDimensionalPathSearch();
         int[][] board = {
-                {1, 0, 1},
-                {0, 0, 0},
-                {0, 0, 1}
+                {1, 1, 1, 1},
+                {0, 0, 0, 1},
+                {0, 0, 1, 1}
         };
 
-        if (twoDPathSearch.pathSearch(board))
+	    int n = 3;
+	    int m = 4;
+
+	    TwoDimensionalPathSearch twoDPathSearch = new TwoDimensionalPathSearch();
+
+        if (twoDPathSearch.pathSearch(board, n, m))
         {
             System.out.println("Path found");
         }
@@ -44,6 +50,17 @@ public class TestDriver
             System.out.println("No path exist");
         }
     }
+
+	private static void testCopyListWithRandomPointer()
+	{
+		RandomListNode head = new RandomListNode();
+		RandomListNode iterator = head;
+
+		HashMap<RandomListNode, Integer> pointerIndex = new HashMap<>();
+		HashMap<Integer, RandomListNode> indexPointer = new HashMap<>();
+
+		// ... to be completed
+	}
 
     public static void main(String[] args)
     {
