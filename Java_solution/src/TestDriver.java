@@ -51,17 +51,6 @@ public class TestDriver
         }
     }
 
-	private static void testCopyListWithRandomPointer()
-	{
-		RandomListNode head = new RandomListNode();
-		RandomListNode iterator = head;
-
-		HashMap<RandomListNode, Integer> pointerIndex = new HashMap<>();
-		HashMap<Integer, RandomListNode> indexPointer = new HashMap<>();
-
-		// ... to be completed
-	}
-
     public static void main(String[] args)
     {
         //testMedianOfTwoSortedArrays();

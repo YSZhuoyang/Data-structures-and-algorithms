@@ -11,7 +11,8 @@ public class CopyLinkedListWithRandomPointer
 	// Given a linked list where each node contains a next
 	// pointer, and a random pointer pointing to any node in
 	// the list or null. Write a function that returns a copy
-	// of the given list.
+	// of the given list. (Assume that given list never have
+	// cycles)
 	public RandomListNode copyList(RandomListNode head)
 	{
 		if (head == null)
@@ -19,7 +20,7 @@ public class CopyLinkedListWithRandomPointer
 			return null;
 		}
 
-		RandomListNode copyHead = new RandomListNode();
+		RandomListNode copyHead = new RandomListNode(0);
 		HashMap<RandomListNode, Integer> pointerIndexHash = new HashMap<>();
 		HashMap<Integer, RandomListNode> indexPointerHash = new HashMap<>();
 
@@ -29,9 +30,9 @@ public class CopyLinkedListWithRandomPointer
 
 		// First while loop which stores each node and and index (starts from 0)
 		// into the pointerIndex hash map
-		while (iterator != null && pointerIndexHash.get(iterator) != null)
+		while (iterator != null)
 		{
-			copyIterator.next = new RandomListNode();
+			copyIterator.next = new RandomListNode(iterator.label);
 
 			pointerIndexHash.put(iterator, index);
 			indexPointerHash.put(index, copyIterator.next);
