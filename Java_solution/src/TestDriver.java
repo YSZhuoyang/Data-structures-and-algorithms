@@ -26,11 +26,30 @@ public class TestDriver
         System.out.println("MedianOfTwoSortedArrays Result: " + m.findMedianSortedArrays(a1, a2));
     }
 
+    private static void test2DPathSearch()
+    {
+        TwoDimensionalPathSearch twoDPathSearch = new TwoDimensionalPathSearch();
+        int[][] board = {
+                {1, 0, 1},
+                {0, 0, 0},
+                {0, 0, 1}
+        };
+
+        if (twoDPathSearch.pathSearch(board))
+        {
+            System.out.println("Path found");
+        }
+        else
+        {
+            System.out.println("No path exist");
+        }
+    }
+
     public static void main(String[] args)
     {
         //testMedianOfTwoSortedArrays();
 
-        OddOrEven oe = new OddOrEven();
+        /*OddOrEven oe = new OddOrEven();
 
         if (oe.isOddOrEven(2))
         {
@@ -39,6 +58,8 @@ public class TestDriver
         else
         {
             System.out.println("Even");
-        }
+        }*/
+
+        test2DPathSearch();
     }
 }
