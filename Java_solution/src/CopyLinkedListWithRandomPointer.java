@@ -3,16 +3,18 @@ import java.util.HashMap;
 /**
  * Created by oscar on 5/29/16.
  *
+ * Given a linked list where each node contains a next
+ * pointer, and a random pointer pointing to any node in
+ * the list or null. Write a function that returns a copy
+ * of the given list. (Assume that given list never have
+ * cycles)
+ *
  * Received from Microsoft interview.
  */
 public class CopyLinkedListWithRandomPointer
 {
 
-	// Given a linked list where each node contains a next
-	// pointer, and a random pointer pointing to any node in
-	// the list or null. Write a function that returns a copy
-	// of the given list. (Assume that given list never have
-	// cycles)
+	// My solution using iteration
 	public RandomListNode copyList(RandomListNode head)
 	{
 		if (head == null)
@@ -62,4 +64,28 @@ public class CopyLinkedListWithRandomPointer
 
 		return copyHead.next;
 	}
+
+	/* A faster and clean solution using recursion
+	HashMap<RandomListNode,RandomListNode> memo = new HashMap<>();
+
+	public RandomListNode copyRandomList(RandomListNode node)
+	{
+		if (node == null)
+		{
+			return null;
+		}
+
+		if (memo.containsKey(node))
+		{
+			return memo.get(node);
+		}
+
+		RandomListNode copy = new RandomListNode(node.label);
+		memo.put(node, copy);
+
+		copy.next = copyRandomList(node.next);
+		copy.random = copyRandomList(node.random);
+
+		return copy;
+	}*/
 }
