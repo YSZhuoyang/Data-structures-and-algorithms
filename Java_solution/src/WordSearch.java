@@ -3,6 +3,7 @@
  */
 public class WordSearch
 {
+
     // My solution (time limit exceeded)
     /*private boolean[][] testedPos;
 
@@ -63,10 +64,10 @@ public class WordSearch
         }
     }*/
 
-    // Optimized solution
+    // An optimized solution
     public boolean exist(char[][] board, String word)
     {
-        if (board == null || board.length * board[0].length < word.length())
+        if (board == null)
         {
             return false;
         }
@@ -87,31 +88,30 @@ public class WordSearch
 
     public boolean backTracking(char[][] board, int r, int c, String word, int i)
     {
-        char temp = board[r][c];
-        board[r][c] = '0';
-        boolean found;
+	    if (c < 0 || c >= board[0].length || r >= board.length || r < 0 ||
+			    board[r][c] != word.charAt(i))
+	    {
+		    return false;
+	    }
 
-        if (temp == word.charAt(i))
-        {
-            if (i == word.length() - 1)
-            {
-                board[r][c] = temp;
+	    char temp = board[r][c];
+	    board[r][c] = '0';
+	    boolean found;
 
-                return true;
-            }
+	    if (i == word.length() - 1)
+	    {
+		    board[r][c] = temp;
 
-            found = ((c > 0 && backTracking(board, r, c - 1, word, i + 1))
-                    || (c < (board[r].length - 1) && backTracking(board, r, c + 1, word, i + 1))
-                    || (r < (board.length - 1) && backTracking(board, r + 1, c, word, i + 1))
-                    || (r > 0 && backTracking(board, r - 1, c, word, i + 1)));
-        }
-        else
-        {
-            found = false;
-        }
+		    return true;
+	    }
 
-        board[r][c] = temp;
+	    found = backTracking(board, r, c - 1, word, i + 1)
+			    || backTracking(board, r, c + 1, word, i + 1)
+			    || backTracking(board, r + 1, c, word, i + 1)
+			    || backTracking(board, r - 1, c, word, i + 1);
 
-        return found;
+	    board[r][c] = temp;
+
+	    return found;
     }
 }

@@ -14,8 +14,32 @@ import java.util.HashMap;
 public class CopyLinkedListWithRandomPointer
 {
 
-	// My solution using iteration
-	public RandomListNode copyList(RandomListNode head)
+	// A faster and clean solution using recursion
+	HashMap<RandomListNode,RandomListNode> memo = new HashMap<>();
+
+	public RandomListNode copyRandomList(RandomListNode node)
+	{
+		if (node == null)
+		{
+			return null;
+		}
+
+		if (memo.containsKey(node))
+		{
+			return memo.get(node);
+		}
+
+		RandomListNode copy = new RandomListNode(node.label);
+		memo.put(node, copy);
+
+		copy.next = copyRandomList(node.next);
+		copy.random = copyRandomList(node.random);
+
+		return copy;
+	}
+
+	/* My solution using iteration
+	public RandomListNode copyRandomList(RandomListNode head)
 	{
 		if (head == null)
 		{
@@ -63,29 +87,5 @@ public class CopyLinkedListWithRandomPointer
 		}
 
 		return copyHead.next;
-	}
-
-	/* A faster and clean solution using recursion
-	HashMap<RandomListNode,RandomListNode> memo = new HashMap<>();
-
-	public RandomListNode copyRandomList(RandomListNode node)
-	{
-		if (node == null)
-		{
-			return null;
-		}
-
-		if (memo.containsKey(node))
-		{
-			return memo.get(node);
-		}
-
-		RandomListNode copy = new RandomListNode(node.label);
-		memo.put(node, copy);
-
-		copy.next = copyRandomList(node.next);
-		copy.random = copyRandomList(node.random);
-
-		return copy;
 	}*/
 }
