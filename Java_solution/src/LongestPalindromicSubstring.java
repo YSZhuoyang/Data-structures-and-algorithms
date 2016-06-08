@@ -4,7 +4,7 @@
 public class LongestPalindromicSubstring
 {
 
-	// My solution which need to be optimized
+	// My solution which needs to be optimized
     public String longestPalindrome(String s)
     {
         if (s == null || s.length() <= 1)
