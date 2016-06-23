@@ -16,9 +16,8 @@ public class ReverseString
 
 		int lPointer = 0;
 		int rPointer = s.length() - 1;
-		int middle = s.length() / 2;
 
-		while (lPointer <= middle)
+		while (lPointer < rPointer)
 		{
 			cArray[lPointer] = s.charAt(rPointer);
 			cArray[rPointer] = s.charAt(lPointer);
