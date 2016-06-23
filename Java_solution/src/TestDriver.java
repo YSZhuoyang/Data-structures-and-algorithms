@@ -51,6 +51,22 @@ public class TestDriver
         }
     }
 
+    public static void testUniqueCharStr()
+    {
+        UniqueCharStr uniqueCharStr = new UniqueCharStr();
+        String testFalse = "asdfa";
+        String testTrue = "asdf";
+
+        if (!uniqueCharStr.uniqueCharStr(testFalse) && uniqueCharStr.uniqueCharStr(testTrue))
+        {
+            System.out.println("Passed");
+        }
+        else
+        {
+            System.out.println("Failed");
+        }
+    }
+
     public static void main(String[] args)
     {
         //testMedianOfTwoSortedArrays();
@@ -66,6 +82,7 @@ public class TestDriver
             System.out.println("Even");
         }*/
 
-        test2DPathSearch();
+        //test2DPathSearch();
+        testUniqueCharStr();
     }
 }
