@@ -93,17 +93,14 @@ public class WordSearch
 	    {
 		    return false;
 	    }
+	    else if (i == word.length() - 1)
+	    {
+		    return true;
+	    }
 
 	    char temp = board[r][c];
 	    board[r][c] = '0';
 	    boolean found;
-
-	    if (i == word.length() - 1)
-	    {
-		    board[r][c] = temp;
-
-		    return true;
-	    }
 
 	    found = backTracking(board, r, c - 1, word, i + 1)
 			    || backTracking(board, r, c + 1, word, i + 1)

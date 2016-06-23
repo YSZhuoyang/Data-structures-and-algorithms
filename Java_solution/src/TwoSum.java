@@ -8,7 +8,7 @@ public class TwoSum
 {
 
     // A faster recommended solution
-    public int[] twoSumRef(int[] nums, int target)
+    public int[] twoSum(int[] nums, int target)
     {
         int[] result = {0, 0};
         Map<Integer, Integer> map = new HashMap<>();
