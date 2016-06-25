@@ -67,6 +67,15 @@ public class TestDriver
         }
     }
 
+    public static void testRemoveDuplicatedChar()
+    {
+        RemoveDuplicatedChar removeDuplicatedChar = new RemoveDuplicatedChar();
+        char[] array = {'c', 'b', 'b', 'a', 'c', 'a', 'b'};
+
+        removeDuplicatedChar.removeDuplicates(array);
+        System.out.println(new String(array));
+    }
+
     public static void main(String[] args)
     {
         //testMedianOfTwoSortedArrays();
@@ -83,6 +92,7 @@ public class TestDriver
         }*/
 
         //test2DPathSearch();
-        testUniqueCharStr();
+        //testUniqueCharStr();
+        testRemoveDuplicatedChar();
     }
 }
