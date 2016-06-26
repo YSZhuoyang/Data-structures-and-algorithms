@@ -76,10 +76,38 @@ public class TestDriver
         System.out.println(new String(array));
     }
 
+    public static void testReplaceSpaces()
+    {
+        ReplaceSpaces replaceSpaces = new ReplaceSpaces();
+        String s = "asdf\tasdf\rasdf ";
+        String expected = "asdf%20asdf%20asdf%20";
+        char[] arr = s.toCharArray();
+        char[] expArr = expected.toCharArray();
+        char[] res = replaceSpaces.replaceSpaces(arr);
+
+        boolean equal = true;
+
+        for (int i = 0; i < res.length; i++)
+        {
+            if (res[i] != expArr[i])
+            {
+                equal = false;
+                break;
+            }
+        }
+
+        if (equal)
+        {
+            System.out.println("Passed");
+        }
+        else
+        {
+            System.out.println("Failed");
+        }
+    }
+
     public static void main(String[] args)
     {
-        //testMedianOfTwoSortedArrays();
-
         /*OddOrEven oe = new OddOrEven();
 
         if (oe.isOddOrEven(2))
@@ -92,7 +120,9 @@ public class TestDriver
         }*/
 
         //test2DPathSearch();
+        //testMedianOfTwoSortedArrays();
         //testUniqueCharStr();
-        testRemoveDuplicatedChar();
+        //testRemoveDuplicatedChar();
+        testReplaceSpaces();
     }
 }
