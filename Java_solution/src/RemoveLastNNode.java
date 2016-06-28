@@ -4,7 +4,7 @@
 public class RemoveLastNNode
 {
 
-    // My solution using two pointers
+    // My first solution using two pointers
     public ListNode removeNthFromEnd(ListNode head, int n)
     {
         ListNode left = head;
@@ -36,6 +36,47 @@ public class RemoveLastNNode
 
         return head;
     }
+
+    /* My second solution
+    // 1. Compute the length of the list
+    // 2. target = len - n
+    public ListNode removeNthFromEnd(ListNode head, int n)
+    {
+        if (head == null)
+        {
+            return head;
+        }
+
+        ListNode iter = head;
+        int len = 0;
+
+        while (iter != null)
+        {
+            iter = iter.next;
+            len++;
+        }
+
+        if (len < n)
+        {
+            return head;
+        }
+        else if (len == n)
+        {
+            return head.next;
+        }
+
+        int target = len - n - 1;
+        iter = head;
+
+        for (int i = 0; i < target; i++)
+        {
+            iter = iter.next;
+        }
+
+        iter.next = iter.next.next;
+
+        return head;
+    }*/
 
     /* A recommended solution
     public ListNode removeNthFromEnd(ListNode head, int n)

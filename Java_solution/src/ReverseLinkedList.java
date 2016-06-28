@@ -7,22 +7,23 @@ public class ReverseLinkedList
     // My solution using iteration
     public ListNode reverseList(ListNode head)
     {
-        if (head == null)
+        if (head == null || head.next == null)
         {
             return head;
         }
 
         ListNode left = head;
-        ListNode right = head.next;
-        ListNode tail;
+        ListNode move;
+        ListNode right;
 
-        while (right != null)
+        while (left.next != null)
         {
-            tail = right.next;
-            right.next = head;
-            left.next = tail;
-            head = right;
-            right = tail;
+            move = left.next;
+            right = move.next;
+
+            move.next = head;
+            head = move;
+            left.next = right;
         }
 
         return head;
@@ -31,7 +32,7 @@ public class ReverseLinkedList
     /* My solution using recursion
     public ListNode reverseList(ListNode head)
     {
-        if (head == null)
+        if (head == null || head.next == null)
         {
             return head;
         }
