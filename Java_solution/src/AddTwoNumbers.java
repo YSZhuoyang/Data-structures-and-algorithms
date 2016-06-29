@@ -2,51 +2,51 @@
 public class AddTwoNumbers
 {
 
-	// My second solution optimized using same idea of addBinaries solution
+    // My second solution optimized using same idea of addBinaries solution
     public ListNode addTwoNumbers(ListNode l1, ListNode l2)
     {
-        if (l1 == null || l2 == null)
+        // This is controversial and need to figure out whether we have
+        // to return a new copy of the input list instead of returning
+        // an input list directly
+        if (l1 == null && l2 == null)
         {
-            if (l1 == null && l2 == null)
-            {
-                return new ListNode(0);
-            }
-            else if (l1 == null)
-            {
-                return l2;
-            }
-            else
-            {
-                return l1;
-            }
+            return new ListNode(0);
+        }
+        else if (l1 == null)
+        {
+            return l2;
+        }
+        else if (l2 == null)
+        {
+            return l1;
         }
 
         ListNode res = new ListNode(0);
-        ListNode rPointer = res;
-        int temp = 0;
+        ListNode iter = res;
+        int carry = 0;
 
         while (l1 != null || l2 != null)
         {
             if (l1 != null)
             {
-                temp += l1.val;
+                carry += l1.val;
                 l1 = l1.next;
             }
 
             if (l2 != null)
             {
-                temp += l2.val;
+                carry += l2.val;
                 l2 = l2.next;
             }
 
-            rPointer.next = new ListNode(temp % 10);
-            rPointer = rPointer.next;
-            temp /= 10;
+            iter.next = new ListNode(carry % 10);
+            iter = iter.next;
+            carry /= 10;
         }
 
-        if (temp > 0)
+        if (carry > 0)
         {
-            rPointer.next = new ListNode(temp);
+            iter.next = new ListNode(carry);
         }
 
         return res.next;
