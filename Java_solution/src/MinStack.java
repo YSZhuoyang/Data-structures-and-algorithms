@@ -2,6 +2,8 @@ import java.util.EmptyStackException;
 
 /**
  * Created by oscar on 6/29/16.
+ *
+ * variations: storing the index of the minimum node so that we are able to remove it!!
  */
 public class MinStack
 {
