@@ -13,7 +13,7 @@ import java.util.Stack;
  */
 public class HanoiTowerWithStack
 {
-	
+
 	public void move(int n, Stack<Integer> from, Stack<Integer> to, Stack<Integer> media)
 	{
 		if (n <= 0)

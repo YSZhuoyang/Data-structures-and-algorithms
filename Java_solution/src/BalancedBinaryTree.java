@@ -5,7 +5,44 @@ import java.util.HashMap;
  */
 public class BalancedBinaryTree
 {
-    HashMap<Integer, Integer> memo = new HashMap<>();
+    HashMap<TreeNode, Integer> memo = new HashMap<>();
+
+    // My optimized solution using dynamic programming
+    public boolean isBalanced(TreeNode root)
+    {
+        if (root == null)
+        {
+            return true;
+        }
+        else if (isBalanced(root.left) && isBalanced(root.right))
+        {
+            int leftHeight = getHeight(root.left);
+            int rightHeight = getHeight(root.right);
+
+            return Math.abs(leftHeight - rightHeight) <= 1;
+        }
+
+        return false;
+    }
+
+    private int getHeight(TreeNode node)
+    {
+        if (node == null)
+        {
+            return -1;
+        }
+        else if (memo.get(node) != null)
+        {
+            return memo.get(node);
+        }
+
+        int leftHeight = getHeight(node.left);
+        int rightHeight = getHeight(node.right);
+        int height = Math.max(leftHeight, rightHeight) + 1;
+        memo.put(node, height);
+
+        return height;
+    }
 
     // A good one with clear and easy to understand idea
     // helper function to find the depth of a tree from a given node
@@ -37,7 +74,7 @@ public class BalancedBinaryTree
         return isBalanced(root.left) && isBalanced(root.right);
     }*/
 
-    // A very fast one (use height of -1 to represent not balance,
+    // A very fast one (using height of -1 to represent not balance,
     // thus there is no repeated computing on the same path)
     /*public boolean isBalanced(TreeNode root)
     {
@@ -63,44 +100,4 @@ public class BalancedBinaryTree
             return Math.max(left, right) + 1;
         }
     }*/
-
-    // My fucking slow solution
-    public boolean isBalanced(TreeNode root)
-    {
-        boolean balanced;
-        boolean leftBalance;
-        boolean rightBalance;
-
-        if (root == null)
-        {
-            return true;
-        }
-
-        //System.out.println("l: " + computeHeight(root.left));
-        //System.out.println("r: " + computeHeight(root.right));
-
-        balanced = Math.abs(computeHeight(root.left) - computeHeight(root.right)) <= 1;
-        leftBalance = isBalanced(root.left);
-        rightBalance = isBalanced(root.right);
-
-        return balanced && leftBalance && rightBalance;
-    }
-
-    public int computeHeight(TreeNode node)
-    {
-        int left;
-        int right;
-
-        if (node == null)
-        {
-            return -2;
-        }
-        else
-        {
-            left = computeHeight(node.left) + 1;
-            right = computeHeight(node.right) + 1;
-
-            return Math.max(left, right);
-        }
-    }
 }

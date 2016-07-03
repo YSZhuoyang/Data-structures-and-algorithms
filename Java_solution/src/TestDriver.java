@@ -119,10 +119,10 @@ public class TestDriver
             System.out.println("Even");
         }*/
 
-        //test2DPathSearch();
+        test2DPathSearch();
         //testMedianOfTwoSortedArrays();
         //testUniqueCharStr();
         //testRemoveDuplicatedChar();
-        testReplaceSpaces();
+        //testReplaceSpaces();
     }
 }
