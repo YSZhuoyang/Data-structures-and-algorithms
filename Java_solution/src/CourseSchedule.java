@@ -31,8 +31,8 @@ public class CourseSchedule
 			return true;
 		}
 
-		// Avoid duplicated edges and only check edges connected
-		// during DFS instead of trying all edges
+		// Only check edges connected of each node during DFS instead of
+		// trying all edges
 		List<Integer>[] prerequisiteLists = new ArrayList[numCourses];
 
 		for (int i = 0; i < numCourses; i++)
