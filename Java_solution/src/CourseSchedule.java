@@ -49,7 +49,7 @@ public class CourseSchedule
 		boolean[] visiting = new boolean[numCourses];
 		boolean[] visited = new boolean[numCourses];
 
-		// Do a DFS for each root node
+		// Try a DFS from every node
 		for (int i = 0; i < numCourses; i++)
 		{
 			if (!dfs(visiting, visited, prerequisiteLists, i))
