@@ -2,12 +2,44 @@ import java.util.Stack;
 
 /**
  * Created by oscar on 6/1/16.
+ *
+ * Assumption: elements within the tree are sorted in pre-order.
  */
 public class FlattenBTreeToLinkedList
 {
 
-	// My first solution using recursive DFS which is a lot faster
+	// My third solution using DFS simpler and faster, with no extra space used
 	public void flatten(TreeNode root)
+	{
+		if (root == null)
+		{
+			return;
+		}
+
+		flatten(root.left);
+		flatten(root.right);
+
+		// Re-connect current node with the flattened left subtree as its right
+		// child and cut off the connection with its left child
+		TreeNode rightSubtree = root.right;
+		root.right = root.left;
+		root.left = null;
+
+		// Go to the right most node
+		TreeNode rightMost = root;
+
+		while (rightMost.right != null)
+		{
+			rightMost = rightMost.right;
+		}
+
+		// Re-connect the right most node with the flattened right subtree
+		rightMost.right = rightSubtree;
+	}
+
+	// My first solution using recursive DFS which is a lot faster,
+	// but requires extra space
+	/*public void flatten(TreeNode root)
 	{
 		if (root == null || (root.left == null && root.right == null))
 		{
@@ -41,7 +73,7 @@ public class FlattenBTreeToLinkedList
 		}
 
 		buildList(pointer, node.right);
-	}
+	}*/
 
 	// My second solution using iterative DFS with a stack
 	/*public void flatten(TreeNode root)
