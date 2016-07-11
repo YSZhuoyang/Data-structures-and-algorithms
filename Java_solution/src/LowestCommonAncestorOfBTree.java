@@ -1,7 +1,7 @@
 /**
  * Created by oscar on 6/1/16.
  *
- * Two steps of optimization:
+ * Two steps optimization:
  * 1. Cache at each node during the traversal, but to do that requires
  *    O(N) extra space.
  * 2. Note that if we are doing post-order DFS, we only need to check
@@ -15,7 +15,7 @@ public class LowestCommonAncestorOfBTree
 	TreeNode parentOfQ;
 
 	// My second solution using DFS and dynamic programming with O(N)
-	// time complexity and O(1) space complexity.
+	// time complexity and O(1) space complexity. (Beat 76% java submissions)
 	public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q)
 	{
 		if (root == null || p == null || q == null)
@@ -37,12 +37,12 @@ public class LowestCommonAncestorOfBTree
 			return lca;
 		}
 
-		if (root == p || (parentOfP != null && (parentOfP == root.left || parentOfP == root.right)))
+		if ((parentOfP != null && (parentOfP == root.left || parentOfP == root.right)) || root == p)
 		{
 			parentOfP = root;
 		}
 
-		if (root == q || (parentOfQ != null && (parentOfQ == root.left || parentOfQ == root.right)))
+		if ((parentOfQ != null && (parentOfQ == root.left || parentOfQ == root.right)) || root == q)
 		{
 			parentOfQ = root;
 		}
