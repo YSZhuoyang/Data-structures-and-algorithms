@@ -12,12 +12,11 @@ public class BTreeIsSymmetric
 
     private boolean isSymmetric(TreeNode p, TreeNode q)
     {
-        if (p==null && q==null)
+        if (p == null && q == null)
         {
             return true;
         }
-
-        if (p==null || q==null)
+        else if (p == null || q == null)
         {
             return false;
         }

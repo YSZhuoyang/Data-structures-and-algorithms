@@ -1,11 +1,64 @@
 /**
  * Created by oscar on 6/1/16.
+ *
+ * Two steps of optimization:
+ * 1. Cache at each node during the traversal, but to do that requires
+ *    O(N) extra space.
+ * 2. Note that if we are doing post-order DFS, we only need to check
+ *    the memory of its direct children. Thus we only need to keep the
+ *    cache of the direct children of the current node. To do that, we
+ *    keep updating the parent of P and the parent of Q.
  */
 public class LowestCommonAncestorOfBTree
 {
+	TreeNode parentOfP;
+	TreeNode parentOfQ;
 
-	// My solution
+	// My second solution using DFS and dynamic programming with O(N)
+	// time complexity and O(1) space complexity.
 	public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q)
+	{
+		if (root == null || p == null || q == null)
+		{
+			return null;
+		}
+
+		TreeNode lca = lowestCommonAncestor(root.left, p, q);
+
+		if (lca != null)
+		{
+			return lca;
+		}
+
+		lca = lowestCommonAncestor(root.right, p, q);
+
+		if (lca != null)
+		{
+			return lca;
+		}
+
+		if (root == p || (parentOfP != null && (parentOfP == root.left || parentOfP == root.right)))
+		{
+			parentOfP = root;
+		}
+
+		if (root == q || (parentOfQ != null && (parentOfQ == root.left || parentOfQ == root.right)))
+		{
+			parentOfQ = root;
+		}
+
+		if (parentOfP == root && parentOfQ == root)
+		{
+			return root;
+		}
+		else
+		{
+			return null;
+		}
+	}
+
+	// My first solution using naive DFS
+	/*public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q)
 	{
 		if (root == null || p == null || q == null)
 		{
@@ -52,10 +105,10 @@ public class LowestCommonAncestorOfBTree
 		}
 
 		return false;
-	}
+	}*/
 
-	/* Assuming p and q must exist in the tree (not a good idea)
-	// A faster solution.
+	/* Similar idea to my second solution, except it assumes that both p and q
+	must exist in the tree.
 	public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q)
 	{
 		if(root == null)

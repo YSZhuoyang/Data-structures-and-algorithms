@@ -8,7 +8,7 @@ import java.util.Stack;
 public class FlattenBTreeToLinkedList
 {
 
-	// My third solution using DFS simpler and faster, with no extra space used
+	// My third solution using DFS which is simpler and faster, with no extra space used
 	public void flatten(TreeNode root)
 	{
 		if (root == null)
