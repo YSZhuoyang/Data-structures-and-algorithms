@@ -5,9 +5,10 @@
  * 1. Cache at each node during the traversal, but to do that requires
  *    O(N) extra space.
  * 2. Note that if we are doing post-order DFS, we only need to check
- *    the memory of its direct children. Thus we only need to keep the
- *    cache of the direct children of the current node. To do that, we
- *    keep updating the parent of P and the parent of Q.
+ *    the cache at its directly connected children. Thus we only need
+ *    to keep the cache of the direct children of the current node. To
+ *    do that, we keep updating the references to the parent of P and
+ *    the parent of Q.
  */
 public class LowestCommonAncestorOfBTree
 {

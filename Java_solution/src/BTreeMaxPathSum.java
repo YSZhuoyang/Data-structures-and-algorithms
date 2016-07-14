@@ -5,7 +5,7 @@
  * 1. Finding all paths within the tree, using Post-Order DFS.
  * 2. See example below:
  *
- *               ....
+ *               ...
  *              /   \
  *         subRoot
  *         /    \
@@ -13,15 +13,17 @@
  *     /  \     /  \
  *   ...  ... ...  ...
  *
- * If we want to find the maximum path of the above sub-tree (starting
- * from the subRoot), we only need to compare the below 4 cases:
- * 1. PathA with the maximum sum starting from nodeA.
- * 2. PathB with the maximum sum starting from nodeB.
- * 3. PathC that only contains the subRoot node.
- * 4. PathD composed of PathA - root - PathB.
+ * If we want to find the maximum path sum of the above sub-tree (starting
+ * from the subRoot), we only need to consider the below 4 cases:
+ * 1. Sum of pathA with the maximum sum starting from nodeA plus the value of subRoot.
+ * 2. Sum of pathB with the maximum sum starting from nodeB plus the value of subRoot.
+ * 3. Sum of pathD composed of PathA - subRoot - PathB.
+ * 4. Value of the subRoot node.
  *
- * Thus during the traversal, we only need to choose the biggest one
- * from PathA, PathB and PathC and return it.
+ * Thus during the DFS,
+ * 1. recursively choose the biggest one from case 1, 2 and 3 as the maximum path
+ * sum starting from the sub-root node and return it.
+ * 2. compare case 1, 2, 3, 4 and choose the biggest one as the maximum path sum.
  */
 public class BTreeMaxPathSum
 {
@@ -48,11 +50,14 @@ public class BTreeMaxPathSum
 			return 0;
 		}
 
+		// Path A with the maximum sum
 		int lPathSum = dfs(node.left);
+		// Path B with the maximum sum
 		int rPathSum = dfs(node.right);
 
 		int leftSum = lPathSum + node.val;
 		int rightSum = rPathSum + node.val;
+		// Path A - root - PathB
 		int leftAndRight = lPathSum + node.val + rPathSum;
 
 		int returnSum = Math.max(Math.max(leftSum, rightSum), node.val);

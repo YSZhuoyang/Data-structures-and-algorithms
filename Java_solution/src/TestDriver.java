@@ -106,9 +106,29 @@ public class TestDriver
         }
     }
 
-    public static void main(String[] args)
+    public static void testUpdateBits()
     {
-        /*OddOrEven oe = new OddOrEven();
+        UpdateBits updateBits = new UpdateBits();
+        // Input: N = 10000000000, M = 10101, i = 2, j = 6
+        int i = 2;
+        int j = 6;
+        int n = 1 << 10;
+        int m = 1 + 4 + 16;
+        int expected = n + (m << i);
+
+        if (updateBits.updateBits(n, m, i, j) == expected)
+        {
+            System.out.println("Passed");
+        }
+        else
+        {
+            System.out.println("Failed");
+        }
+    }
+
+    public static void testOddOrEven()
+    {
+        OddOrEven oe = new OddOrEven();
 
         if (oe.isOddOrEven(2))
         {
@@ -117,9 +137,14 @@ public class TestDriver
         else
         {
             System.out.println("Even");
-        }*/
+        }
+    }
 
-        test2DPathSearch();
+    public static void main(String[] args)
+    {
+        testUpdateBits();
+        //testOddOrEven;
+        //test2DPathSearch();
         //testMedianOfTwoSortedArrays();
         //testUniqueCharStr();
         //testRemoveDuplicatedChar();
