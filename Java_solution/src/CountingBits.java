@@ -5,6 +5,9 @@ public class CountingBits
 {
 
 	// My solution with O(N) time complexity and O(N) extra space
+	// Idea:
+	// 1. Same way for calculating binaries as the solution of addBinaries.
+	// 2. Compute the number of bits based on the previous results.
 	public int[] countBits(int num)
 	{
 		int[] numBits = new int[num + 1];
@@ -28,13 +31,11 @@ public class CountingBits
 
 		while (i < bin.length && carry > 0)
 		{
-			int d = bin[i];
-			carry += d;
-			d = carry % 2;
-			bin[i] = d;
+			carry += bin[i];
+			bin[i] = carry % 2;
 			carry /= 2;
 
-			if (d == 1)
+			if (bin[i] == 1)
 			{
 				bitCounter++;
 			}
