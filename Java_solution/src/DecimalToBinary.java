@@ -1,15 +1,20 @@
-import java.util.ArrayDeque;
 import java.util.HashMap;
+import java.util.Stack;
 
 /**
  * Created by oscar on 7/18/16.
  *
- * Convert a decimal number to binary representation
+ * Convert a decimal number to binary representation.
+ *
+ * Idea:
+ * 1. Recursively find out indices of 1s.
+ * 2. Speed up searching process by using a stack storing powers of 2 in a descending order.
  */
 public class DecimalToBinary
 {
+	Stack<Integer> powerOf2;
+	Stack<Integer> posOfOnes;
 	HashMap<Integer, Integer> binTable;
-	ArrayDeque<Integer> posOfOnes;
 
 	public String convertDecimalToBinary(String decimal)
 	{
@@ -17,20 +22,29 @@ public class DecimalToBinary
 		{
 			return "";
 		}
+		else if (decimal.equals("0") || decimal.equals("1"))
+		{
+			return decimal;
+		}
 
-		// Construct a hash map storing powers of 2
+		// Construct a hash map for finding indices,
+		// And a stack storing powers of 2
 		binTable = new HashMap<>(31);
+		powerOf2 = new Stack<>();
+		int power;
 
 		for (int i = 0; i < 31; i++)
 		{
-			binTable.put((int) Math.pow(2, i), i);
+			power = (int) Math.pow(2, i);
+			binTable.put(power, i);
+			powerOf2.push(power);
 		}
 
-		posOfOnes = new ArrayDeque<>();
+		posOfOnes = new Stack<>();
 		int d = Integer.parseInt(decimal);
 
 		// Find all indices of 1s and store them into the queue through dfs
-		if (!findOnes(d)) return "";
+		findOnes(d);
 
 		// Construct a binary number with indices of 1s
 		int pos;
@@ -51,33 +65,19 @@ public class DecimalToBinary
 		return sb.toString();
 	}
 
-	private boolean findOnes(int decimal)
+	private void findOnes(int decimal)
 	{
-		if (decimal > 0 && binTable.get(decimal) != null)
+		if (decimal <= 0 || powerOf2.isEmpty())
 		{
-			int bin = binTable.get(decimal);
-			binTable.remove(decimal);
-			posOfOnes.add(bin);
-
-			return true;
+			return;
 		}
 
-		for (int i = decimal - 1; i > 0; i--)
+		while (powerOf2.peek() > decimal)
 		{
-			if (binTable.get(i) != null)
-			{
-				int bin = binTable.get(i);
-				binTable.remove(i);
-
-				if (findOnes(decimal - i))
-				{
-					posOfOnes.add(bin);
-
-					return true;
-				}
-			}
+			powerOf2.pop();
 		}
 
-		return false;
+		posOfOnes.push(binTable.get(powerOf2.peek()));
+		findOnes(decimal - powerOf2.pop());
 	}
 }
