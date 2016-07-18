@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by oscar on 7/3/16.
  *
- * Two approaches (both with a time complexity of O(V + E)):
+ * Two ways of implementing graph topological sort (both with a time complexity of O(V + E)):
  * 1. Detect whether a graph contains a cycle using DFS
  * 2. Find out whether all nodes are reachable using BFS
  *

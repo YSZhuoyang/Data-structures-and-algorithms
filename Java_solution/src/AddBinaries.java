@@ -4,7 +4,7 @@
 public class AddBinaries
 {
 
-    // A very fast, extendable solution (suitable for any system of carry)
+    // A very fast, extendable solution (suitable for any carry system)
     public String addBinary(String a, String b/* , int carry */)
     {
         int c = 0;

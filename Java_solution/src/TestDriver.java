@@ -126,6 +126,23 @@ public class TestDriver
         }
     }
 
+    public static void testDecimalToBinary()
+    {
+        DecimalToBinary decimalToBinary = new DecimalToBinary();
+        String input = "13";
+        String expected = "1101";
+        String res = decimalToBinary.convertDecimalToBinary(input);
+
+        if (res.equals(expected))
+        {
+            System.out.println("Passed");
+        }
+        else
+        {
+            System.out.println("Failed");
+        }
+    }
+
     public static void testOddOrEven()
     {
         OddOrEven oe = new OddOrEven();
@@ -142,7 +159,8 @@ public class TestDriver
 
     public static void main(String[] args)
     {
-        testUpdateBits();
+        testDecimalToBinary();
+        //testUpdateBits();
         //testOddOrEven;
         //test2DPathSearch();
         //testMedianOfTwoSortedArrays();
