@@ -12,6 +12,7 @@
 
 # Intellij
 out/
+.idea/
 
 # Build results
 [Dd]ebug/
