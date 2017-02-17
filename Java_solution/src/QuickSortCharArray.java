@@ -1,7 +1,8 @@
 /**
  * Created by oscar on 6/25/16.
  *
- * An in space quick sort solution
+ * An in space quick sort solution.
+ * There is a bug that need to be fixed.
  */
 public class QuickSortCharArray
 {
@@ -13,8 +14,6 @@ public class QuickSortCharArray
 			if (array[left] > array[right])
 			{
 				swap(array, left, right);
-
-				return;
 			}
 
 			return;
