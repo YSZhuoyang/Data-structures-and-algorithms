@@ -7,7 +7,7 @@ import java.util.Arrays;
 public class RansomNote
 {
     /**
-     * Time: O(n)
+     * Time: O(n + m)
      * 1. Array storing frequencies.
      */
     public boolean canConstruct1(String ransomNote, String magazine)
@@ -22,7 +22,7 @@ public class RansomNote
 
     /**
      * My solution:
-     * Time: O(nlog(n))
+     * Time: O(nlog(n) + mlog(m))
      * 1. Sort.
      * 2. Use two pointers.
      */
