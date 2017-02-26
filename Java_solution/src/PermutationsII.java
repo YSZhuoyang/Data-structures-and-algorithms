@@ -76,4 +76,45 @@ public class PermutationsII
 		nums[a] = nums[b];
 		nums[b] = temp;
 	}
+
+	/*
+	 * An extended version based on a DFS backtrack solution
+	 * that recursively adding new elements.
+	public List<List<Integer>> permuteUnique(int[] nums)
+	{
+        List<List<Integer>> res = new ArrayList<>();
+
+        if (nums == null || nums.length == 0)
+            return res;
+
+        Arrays.sort(nums);
+        boolean[] used = new boolean[nums.length];
+        backtrack(nums, used, new ArrayList<>(), res);
+
+        return res;
+    }
+
+    private void backtrack(int[] nums, boolean[] used, List<Integer> l, List<List<Integer>> res)
+    {
+        int size = l.size();
+
+        if (size == nums.length)
+        {
+            res.add(new ArrayList<>(l));
+            return;
+        }
+
+        for (int i = 0; i < nums.length; i++)
+        {
+            if (used[i] || (i > 0 && nums[i] == nums[i - 1] && !used[i - 1]))
+                continue;
+
+            l.add(nums[i]);
+            used[i] = true;
+            backtrack(nums, used, l, res);
+            l.remove(size);
+            used[i] = false;
+        }
+    }
+	 */
 }
