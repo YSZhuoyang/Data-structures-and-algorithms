@@ -10,44 +10,41 @@ public class PathSumII
     // My solution
     public List<List<Integer>> pathSum(TreeNode root, int sum)
     {
-        ArrayList<List<Integer>> results = new ArrayList<>();
-
-        if (root != null)
-        {
-            ArrayList<Integer> newList = new ArrayList<>();
-            depthTraversal(root, results, newList, 0, sum);
-        }
-
-        return results;
+        if (root == null)
+            return new ArrayList<List<Integer>>();
+        
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> p = new ArrayList<>();
+        dfs(root, res, p, 0, sum);
+        
+        return res;
     }
 
-    private void depthTraversal(TreeNode node, ArrayList<List<Integer>> lists, ArrayList<Integer> list, int sum, int target)
+    private void dfs(TreeNode n, List<List<Integer>> res, List<Integer> p, int v, int sum)
     {
-        if (node.left == null & node.right == null)
+        if (n.left == null && n.right == null)
         {
-            if (sum + node.val == target)
+            if (v + n.val == sum)
             {
-                list.add(node.val);
-                lists.add(list);
+                p.add(n.val);
+                res.add(p);
             }
-        }
-        else if (node.left != null && node.right != null)
-        {
-            list.add(node.val);
-            ArrayList<Integer> newList = (ArrayList<Integer>) list.clone();
-
-            depthTraversal(node.right, lists, newList, sum + node.val, target);
-            depthTraversal(node.left, lists, list, sum + node.val, target);
-        }
-        else if (node.left == null)
-        {
-            list.add(node.val);
-            depthTraversal(node.right, lists, list, sum + node.val, target);
+            
+            return;
         }
         else
         {
-            list.add(node.val);
-            depthTraversal(node.left, lists, list, sum + node.val, target);
+            v += n.val;
+            p.add(n.val);
+            
+            if (n.right != null)
+            {
+                List<Integer> p2 = new ArrayList<>(p);
+                dfs(n.right, res, p2, v, sum);
+            }
+            
+            if (n.left != null)
+                dfs(n.left, res, p, v, sum);
         }
     }
 }
