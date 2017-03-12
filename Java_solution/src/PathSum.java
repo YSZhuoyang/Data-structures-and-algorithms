@@ -12,7 +12,7 @@ public class PathSum
         return dfs(root, 0, sum);
     }
 
-    private boolean depthTraversal(TreeNode node, int sum, int target)
+    private boolean dfs(TreeNode n, int v, int s)
     {
         if (n.left == null && n.right == null)
             return v + n.val == s;
