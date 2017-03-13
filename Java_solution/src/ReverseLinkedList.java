@@ -4,7 +4,24 @@
 public class ReverseLinkedList
 {
 
-    // My solution using iteration
+    // My solution using recursion.
+    public ListNode reverseList(ListNode head)
+    {
+        if (head == null || head.next == null)
+            return head;
+
+        // Iterate through until the end of the list.
+        // Get the tail, and return as a new head.
+        ListNode n = reverseList(head.next);
+        // Establish reversed connection.
+        head.next.next = head;
+        // Cut original connection, to prevent forming a circle.
+        head.next = null;
+
+        return n;
+    }
+
+    /* My solution using iteration
     public ListNode reverseList(ListNode head)
     {
         if (head == null || head.next == null)
@@ -27,34 +44,6 @@ public class ReverseLinkedList
         }
 
         return head;
-    }
-
-    /* My solution using recursion
-    public ListNode reverseList(ListNode head)
-    {
-        if (head == null || head.next == null)
-        {
-            return head;
-        }
-
-        ListNode newHead = new ListNode(0);
-        recReverse(head, newHead);
-
-        return newHead.next;
-    }
-
-    private void recReverse(ListNode node, ListNode newHead)
-    {
-        if (node.next == null)
-        {
-            newHead.next = node;
-            return;
-        }
-
-        recReverse(node.next, newHead);
-
-        node.next.next = node;
-        node.next = null;
     }*/
 
     /* An alternative using stack, slow, not recommended
