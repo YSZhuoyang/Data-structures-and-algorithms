@@ -3,9 +3,48 @@
  */
 public class CountAndSay
 {
+	// My recursive solution beating 87% java submissions
+	public String countAndSay(int n) {
+		String s = "1";
 
-	// My solution beats 48% java submissions
-	public String countAndSay(int n)
+		for (int i = 1; i < n; i++)
+		    s = countAndSay(s);
+
+		return s;
+	    }
+
+	    public String countAndSay(String s)
+	    {
+		if (s == null || s.isEmpty()) return s;
+
+		StringBuilder sb = new StringBuilder();
+		char[] cArr = s.toCharArray();
+
+		int count = 1;
+		char say = cArr[0];
+
+		for (int i = 1; i < cArr.length; i++)
+		{
+		    if (cArr[i] == cArr[i - 1])
+			count++;
+		    else
+		    {
+			sb.append(count);
+			sb.append(say);
+
+			say = cArr[i];
+			count = 1;
+		    }
+		}
+
+		sb.append(count);
+		sb.append(say);
+
+		return sb.toString();
+	}
+
+	// My iterative solution beating 48% java submissions
+	public String countAndSay2(int n)
 	{
 		if (n <= 0)
 		{
