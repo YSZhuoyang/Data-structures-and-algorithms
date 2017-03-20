@@ -1,13 +1,13 @@
 /**
  * Created by oscar on 6/1/16.
  *
+ * Idea: do a post order traversal.
  * Two steps optimization:
  * 1. Cache at each node during the traversal, but to do that requires
  *    O(N) extra space.
- * 2. Note that if we are doing post-order DFS, we only need to check
- *    the cache at its directly connected children. Thus we only need
- *    to keep the cache of the direct children of the current node. To
- *    do that, we keep updating the references to the parent of P and
+ * 2. As we do post-order DFS, we only need to keep the cache at
+ *    its directly connected children of the current node. To do
+ *    that, we keep updating the references to the parent of P and
  *    the parent of Q.
  */
 public class LowestCommonAncestorOfBTree
@@ -59,53 +59,32 @@ public class LowestCommonAncestorOfBTree
 	}
 
 	// My first solution using naive DFS
-	/*public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q)
-	{
-		if (root == null || p == null || q == null)
-		{
-			return null;
-		}
+	/*public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+		if (root == null) return null;
 
-		TreeNode leftFound = lowestCommonAncestor(root.left, p, q);
-		TreeNode rightFound = lowestCommonAncestor(root.right, p, q);
+		TreeNode l = lowestCommonAncestor(root.left, p, q);
+		if (l != null) return l;
 
-		if (leftFound != null)
-		{
-			return leftFound;
-		}
-		else if (rightFound != null)
-		{
-			return rightFound;
-		}
-		else if (hasChild(root, p) && hasChild(root, q))
-		{
-			return root;
-		}
+		TreeNode r = lowestCommonAncestor(root.right, p, q);
+		if (r != null) return r;
+
+		int numFound = dfs(root, p, q);
+		if (numFound == 2) return root;
 
 		return null;
 	}
 
-	private boolean hasChild(TreeNode root, TreeNode target)
+	private int dfs(TreeNode root, TreeNode p, TreeNode q)
 	{
-		if (root == null)
-		{
-			return false;
-		}
+		if (root == null) return 0;
 
-		if (root == target)
-		{
-			return true;
-		}
-		else if (hasChild(root.left, target))
-		{
-			return true;
-		}
-		else if (hasChild(root.right, target))
-		{
-			return true;
-		}
+		int numFound = 0;
+		if (root == p || root == q) numFound++;
+		numFound += dfs(root.left, p, q);
+		if (numFound < 2)
+		    numFound += dfs(root.right, p, q);
 
-		return false;
+		return numFound;
 	}*/
 
 	/* Similar idea to my second solution, except it assumes that both p and q
