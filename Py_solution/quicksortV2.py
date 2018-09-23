@@ -66,10 +66,10 @@ def quicksort(start, end, array):
     leftPtr = start + 1
     rightPtr = end
     while (leftPtr <= rightPtr):
-        while (leftPtr <= end and array[leftPtr] <= pivot):
+        while (leftPtr <= rightPtr and array[leftPtr] <= pivot):
             leftPtr += 1
 
-        while (rightPtr >= start + 1 and array[rightPtr] > pivot):
+        while (rightPtr >= leftPtr and array[rightPtr] > pivot):
             rightPtr -= 1
 
         if (leftPtr < rightPtr):
@@ -89,5 +89,5 @@ def quicksort(start, end, array):
 
 array = readIntegers('./QuickSort')
 numComparison = quicksort(0, len(array) - 1, array)
-print(array)
+# print(array)
 print(numComparison)
