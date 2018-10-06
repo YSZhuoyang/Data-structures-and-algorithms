@@ -137,7 +137,7 @@ def dfsII(graphData, initialVertId, visited):
     return nodeCounter
 
 
-graphData, revGraphData = readGraphData("./SCC", 875714)
+graphData, revGraphData = readGraphData("./SCC2", 9)
 sizes = findStronglyConnectedGraph(graphData, revGraphData)
 sizes.sort(reverse=True)
 print(sizes[:5])
