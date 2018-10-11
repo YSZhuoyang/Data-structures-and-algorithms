@@ -2,7 +2,7 @@
 # Running time: O(Elog(V))
 
 from sys import maxsize
-from copy import deepcopy
+from copy import deepcopy, copy
 
 
 class Vertex:
@@ -35,10 +35,10 @@ class Heap:
             return None
 
         pos = self.posDict[str(vertex)]
-        return deepcopy(self.buffer[pos])
+        return copy(self.buffer[pos])
 
     def insert(self, vertex):
-        clone = deepcopy(vertex)
+        clone = copy(vertex)
         preSize = len(self.buffer)
         self.buffer.append(clone)
         self.posDict[str(clone)] = preSize
@@ -94,6 +94,10 @@ class Heap:
         self.buffer[posX] = self.buffer[posY]
         self.buffer[posY] = temp
 
+    def __shift(self, vertex, newPos):
+        self.buffer[newPos] = vertex
+        self.posDict[str(vertex)] = newPos
+
     def __getChildrenId(self, parentId):
         size = len(self.buffer)
         left = parentId * 2 + 1
@@ -123,38 +127,47 @@ class Heap:
     #-----------------------------------------------------#
 
     def __heapifyDownIter(self, rootId):
+        root = self.buffer[rootId]
         parentId = rootId
-        leftId, rightId = self.__getChildrenId(parentId)
-        while leftId != None:
-            smallerId = leftId
+        while True:
+            leftId, rightId = self.__getChildrenId(parentId)
+            if leftId == None:
+                self.__shift(root, parentId)
+                break
+
+            smallerChildId = leftId
             if rightId != None:
                 right = self.buffer[rightId]
                 left = self.buffer[leftId]
                 if left.value > right.value:
-                    smallerId = rightId
+                    smallerChildId = rightId
 
-            smallerChild = self.buffer[smallerId]
-            parent = self.buffer[parentId]
-            if smallerChild.value >= parent.value:
+            smallerChild = self.buffer[smallerChildId]
+            if smallerChild.value >= root.value:
+                self.__shift(root, parentId)
                 break
 
-            # Swap smaller child with parent
-            self.__swap(smallerId, parentId)
-            parentId = smallerId
-            leftId, rightId = self.__getChildrenId(parentId)
+            # Shift smaller child up
+            self.__shift(smallerChild, parentId)
+            parentId = smallerChildId
 
     def __heapifyUpIter(self, leafId):
+        leaf = self.buffer[leafId]
         childId = leafId
-        parentId = self.__getParentId(childId)
-        while parentId != None:
-            parent = self.buffer[parentId]
-            child = self.buffer[childId]
-            if parent.value <= child.value:
+        while True:
+            parentId = self.__getParentId(childId)
+            if parentId == None:
+                self.__shift(leaf, childId)
                 break
 
-            self.__swap(parentId, childId)
+            parent = self.buffer[parentId]
+            if parent.value <= leaf.value:
+                self.__shift(leaf, childId)
+                break
+
+            # Shift parent down
+            self.__shift(parent, childId)
             childId = parentId
-            parentId = self.__getParentId(childId)
 
     #-----------------------------------------------------#
     #----------------- Recursive heapify -----------------#
@@ -166,18 +179,18 @@ class Heap:
         if leftId == None:
             return
 
-        smallerId = leftId
+        smallerChildId = leftId
         if rightId != None:
             right = self.buffer[rightId]
             left = self.buffer[leftId]
             if right.value < left.value:
-                smallerId = rightId
+                smallerChildId = rightId
 
-        smallerChild = self.buffer[smallerId]
+        smallerChild = self.buffer[smallerChildId]
         if smallerChild.value < parent.value:
             # Swap smaller child with parent
-            self.__swap(smallerId, parentId)
-            self.__heapifyDown(smallerId)
+            self.__swap(smallerChildId, parentId)
+            self.__heapifyDown(smallerChildId)
 
     def __heapifyUp(self, childId):
         parentId = self.__getParentId(childId)
