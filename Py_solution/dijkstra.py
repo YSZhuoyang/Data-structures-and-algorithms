@@ -8,7 +8,7 @@ from copy import deepcopy, copy
 class Vertex:
     def __init__(self, id, value=maxsize):
         self.id = id
-        # Shortest path length computed with Dijkstra's algorithm
+        # Shortest path distance computed with Dijkstra's algorithm
         self.value = value
         self.adjVertices = []
 
