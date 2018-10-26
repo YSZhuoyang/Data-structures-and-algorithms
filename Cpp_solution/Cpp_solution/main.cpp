@@ -1,4 +1,3 @@
-#include "AVLTree.h"
 #include "LinkedList.h"
 #include "BurstBalloons.h"
 #include "Stack.h"
@@ -36,28 +35,6 @@ int main()
 
 	//queue.printQueue();
 
-	/* Test AVL Tree */
-	printf( "\nTest AVL Tree: \n\n" );
-
-	AVLTree avlTree;
-
-	if (avlTree.insert( 3 ) &&
-		avlTree.insert( 0 ) &&
-		avlTree.insert( 1 ) &&
-		avlTree.insert( 2 ) &&
-		avlTree.insert( 4 ) &&
-		avlTree.insert( -1 ))
-	{
-		printf( "Insertion succeeded!\n" );
-	}
-
-	if (avlTree.deleteNode( 1 ))
-	{
-		printf( "Deletion succeeded!\n" );
-	}
-
-	avlTree.printTree();
-
 
 	/* Test Linked list */
 	printf( "\n\nTest linked list: \n\n" );
@@ -86,7 +63,6 @@ int main()
 	list.deleteByIndex( 0 );
 	printf( "\n\nAfter deletion by index 0: \n\n" );
 	list.printList();
-	//std::cout << "size: " << +list.getSize() << std::endl;
 
 	list.deleteByIndex( 1 );
 	printf( "\n\nAfter deletion by index 1: \n\n" );
