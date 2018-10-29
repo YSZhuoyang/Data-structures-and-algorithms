@@ -13,9 +13,6 @@ class Vertex:
         self.adjVertices = []
 
     def __str__(self):
-        return str(self.id)
-
-    def fullStr(self):
         return str(self.id) + ": " + str(self.value)
 
 
@@ -31,26 +28,25 @@ class Heap:
         return len(self.buffer)
 
     def get(self, vertex):
-        if str(vertex) not in self.posDict:
+        if vertex.id not in self.posDict:
             return None
 
-        pos = self.posDict[str(vertex)]
+        pos = self.posDict[vertex.id]
         return copy(self.buffer[pos])
 
     def insert(self, vertex):
         clone = copy(vertex)
         preSize = len(self.buffer)
         self.buffer.append(clone)
-        self.posDict[str(clone)] = preSize
+        self.posDict[clone.id] = preSize
         # Perform a heapify by bubbling up inserted key
         self.__heapifyUpIter(preSize)
 
     def update(self, vertex):
-        vertexStr = str(vertex)
-        if vertexStr not in self.posDict:
+        if vertex.id not in self.posDict:
             raise Exception("Vertex not found")
 
-        pos = self.posDict[vertexStr]
+        pos = self.posDict[vertex.id]
         prevValue = self.buffer[pos].value
         if prevValue == vertex.value:
             return
@@ -73,8 +69,8 @@ class Heap:
         min = self.buffer[0]
         # Shift the bottom right most element to the top
         self.buffer[0] = self.buffer.pop(preSize - 1)
-        self.posDict[str(self.buffer[0])] = 0
-        self.posDict.pop(str(min))
+        self.posDict[self.buffer[0].id] = 0
+        self.posDict.pop(min.id)
 
         # Perform a heapify by bubbling down moved element
         self.__heapifyDownIter(0)
@@ -87,8 +83,8 @@ class Heap:
 
     def __swap(self, posX, posY):
         # Update position mapping
-        self.posDict[str(self.buffer[posX])] = posY
-        self.posDict[str(self.buffer[posY])] = posX
+        self.posDict[self.buffer[posX].id] = posY
+        self.posDict[self.buffer[posY].id] = posX
         # Update vertex buffer
         temp = self.buffer[posX]
         self.buffer[posX] = self.buffer[posY]
@@ -96,7 +92,7 @@ class Heap:
 
     def __shift(self, vertex, newPos):
         self.buffer[newPos] = vertex
-        self.posDict[str(vertex)] = newPos
+        self.posDict[vertex.id] = newPos
 
     def __getChildrenId(self, parentId):
         size = len(self.buffer)
@@ -219,7 +215,7 @@ def testHeap():
         heap.update(vert)
     min = heap.extractMin()
     while min != None:
-        print(min.fullStr())
+        print(str(min))
         min = heap.extractMin()
 
 
