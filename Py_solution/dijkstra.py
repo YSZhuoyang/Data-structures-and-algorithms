@@ -27,11 +27,11 @@ class Heap:
     def getSize(self):
         return len(self.buffer)
 
-    def get(self, vertex):
-        if vertex.id not in self.posDict:
+    def get(self, vertexId):
+        if vertexId not in self.posDict:
             return None
 
-        pos = self.posDict[vertex.id]
+        pos = self.posDict[vertexId]
         return copy(self.buffer[pos])
 
     def insert(self, vertex):
@@ -244,28 +244,34 @@ def readGraphData(fileName, numVertices):
 def dijkstra(oriGraphData, sourceVertId):
     heap = Heap()
     graphData = deepcopy(oriGraphData)
+    numVertices = len(graphData)
+
+    # Base case, initialize visited set with source vertex
+    # and update Dij scores for its adjacent vertices
     source = graphData[sourceVertId]
     source.value = 0
     visitedSet = {source.id: 0}
-    numVertices = len(graphData)
+    lastAddedVertex = source
+
     while len(visitedSet) < numVertices:
-        for visited in visitedSet:
-            for adjEdge in graphData[visited].adjVertices:
-                adjVertId = adjEdge[0]
-                if adjVertId in visitedSet:
-                    continue
+        # Update Dij scores for adjacent vertices of the newly added vertex
+        for adjEdge in lastAddedVertex.adjVertices:
+            adjVertId = adjEdge[0]
+            if adjVertId in visitedSet:
+                continue
 
-                edgeLen = adjEdge[1]
-                newScore = visitedSet[visited] + edgeLen
-                graphData[adjVertId].value = newScore
-                existAdj = heap.get(Vertex(adjVertId))
-                if existAdj == None:
-                    heap.insert(graphData[adjVertId])
-                elif existAdj.value > newScore:
-                    heap.update(graphData[adjVertId])
+            edgeLen = adjEdge[1]
+            newScore = lastAddedVertex.value + edgeLen
+            graphData[adjVertId].value = newScore
+            existAdj = heap.get(adjVertId)
+            if existAdj == None:
+                heap.insert(graphData[adjVertId])
+            elif existAdj.value > newScore:
+                heap.update(graphData[adjVertId])
 
-        min = heap.extractMin()
-        visitedSet[min.id] = min.value
+        # Extract the vertex with the minimum Dij score and add it to visited set
+        lastAddedVertex = heap.extractMin()
+        visitedSet[lastAddedVertex.id] = lastAddedVertex.value
 
     return visitedSet
 
