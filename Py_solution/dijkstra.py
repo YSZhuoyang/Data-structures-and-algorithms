@@ -1,5 +1,6 @@
 # A Dijkstra's shortest path algorithm using heap.
 # Running time: O(Elog(V))
+# See below for the algorithmic analysis.
 
 from sys import maxsize
 from copy import deepcopy, copy
@@ -241,6 +242,12 @@ def readGraphData(fileName, numVertices):
     return graphData
 
 
+# Algorithmic analysis:
+# 1. Its obvious to see that there're V - 1 extract min operation.
+# 2. Every time we add a new vertex into visted set, Dij scores for all adjacent
+#    vertices get updated, which adds up to E heap update / insert operation.
+# Thus in total there're: V + E heap operation => (V + E)logV => ElogV
+# (as for any connected graph, E >= V - 1 thus E dominates total number)
 def dijkstra(oriGraphData, sourceVertId):
     heap = Heap()
     graphData = deepcopy(oriGraphData)
