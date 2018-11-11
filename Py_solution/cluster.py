@@ -2,6 +2,16 @@
 from copy import deepcopy
 
 
+# Kruskal's MST algorithm (given graph G with N vertices and M edges):
+# 1. Sort edges based on the weight in in ascending order.
+# 2. For 1 : M:
+#        Pick the cheapest edge
+#        If adding it to MST results in a cycle:
+#            Throw it away and continue
+#        Add it to the MST
+#        Stop early if: N(MST) == N - 1
+
+
 class Vertex:
     def __init__(self, id):
         self.id = id
@@ -46,7 +56,10 @@ def readGraphData(fileName):
     return vertices, edges
 
 
-# Same as Kruskal's algorithm
+# Same as Kruskal's MST algorithm except it stops earlier
+# by tracking vertices in each group (e.g. with Union-find),
+# and terminate when number of groups is equivalent to
+# target number of clusters.
 def KruskalCluster(vertices, edges, numClusters):
     numEdges = len(edges)
     sortedEdges = sorted(edges, key=lambda edge: edge.w)
@@ -69,18 +82,16 @@ def KruskalCluster(vertices, edges, numClusters):
             continue
 
         # Fuse them, find min group, and update its leader
-        groupA = groups[vertA.leader]
-        groupB = groups[vertB.leader]
+        groupALeader = vertA.leader
+        groupBLeader = vertB.leader
+        groupA = groups[groupALeader]
+        groupB = groups[groupBLeader]
         if len(groupA) > len(groupB):
-            groupALeader = groupA[0].leader
-            groupBLeader = groupB[0].leader
             for groupBVert in groupB:
                 groupBVert.leader = groupALeader
                 groupA.append(groupBVert)
             groups.pop(groupBLeader)
         else:
-            groupALeader = groupA[0].leader
-            groupBLeader = groupB[0].leader
             for groupAVert in groupA:
                 groupAVert.leader = groupBLeader
                 groupB.append(groupAVert)
