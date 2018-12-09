@@ -26,7 +26,6 @@ def readInputData(fileName):
             vertices[i] = Vertex(i)
 
         # Read vertex ids of the directed edge and its length.
-        i = 0
         for line in f:
             rawData = line.split()
             # Make them 0-indexed
@@ -68,8 +67,6 @@ def floydWarshall(graphData, numEdges):
     print("Initialization finished")
 
     for k in range(1, numVert):
-        print(str(k))
-
         for j in range(numVert):
             for i in range(numVert):
                 shortestWithoutK = memo[0][i][j]
