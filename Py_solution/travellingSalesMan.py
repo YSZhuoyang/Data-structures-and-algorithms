@@ -1,6 +1,7 @@
 
 import math
 import datetime
+import sys
 
 
 def readInputData(fileName):
@@ -78,26 +79,40 @@ def extendPath(node, vertAvail, dist):
 # A dynamic programming approach with running time: O(N^2 * 2^N),
 # by decomposing the problem into subproblems in below approach:
 #   memo[S, dest] = min(memo[S - {dest}][k] + dist[k][dest])
+#
+# Complexity analysis:
+# 1. Compute the length of shortest path for every subset of vertices: N ^ 2
+# 2. Total number of subsets: 2 ^ N
 ################################################################
 
 # Represent +infinity
-maxDist = 9999999999
+maxDist = sys.maxsize
+
+
+def getSubSetMask(subSet):
+    subSetMask = 0
+    for v in subSet:
+        subSetMask |= 1 << v
+
+    return subSetMask
 
 
 # An iterative approach which optimizes memory space use.
 #
-# Note: 'subset' denotes the set of vertices visited in the path,
+# Note:
+# 1. 'subset' denotes the set of vertices visited in the path,
 # excluding the source vertex 0 and destination vertex j.
+# 2. Use a 32 bit integer to store vertices in the subset (1 for existence, 0 otherwise)
 def travellingSalesManDPIter(vertices, dist):
     numVert = len(vertices)
     memo = {}
     # Init with base cases:
     # Base cast 1: subset is empty: {}
     subSet = set()
-    subSetKeyStr = str(subSet)
-    memo[subSetKeyStr] = {}
+    subSetMask = 0
+    memo[subSetMask] = {}
     for dest in range(1, numVert):
-        memo[subSetKeyStr][dest] = dist[0][dest]
+        memo[subSetMask][dest] = dist[0][dest]
 
     # Store all subset in previous enumveration iteration
     subSets = [subSet]
@@ -108,8 +123,8 @@ def travellingSalesManDPIter(vertices, dist):
 
         # Enum and loop over all previous subsets
         for subSet in subSets:
-            subSetKeyStr = str(subSet)
-            allDistsToK = memo[subSetKeyStr]
+            subSetMask = getSubSetMask(subSet)
+            allDistsToK = memo[subSetMask]
 
             for dest in range(1, numVert):
                 if dest in subSet:
@@ -127,16 +142,16 @@ def travellingSalesManDPIter(vertices, dist):
                     # Generate a new subset by adding vertex k
                     newSubSet = subSet.copy()
                     newSubSet.add(k)
-                    newSubSetKeyStr = str(newSubSet)
-                    if newSubSetKeyStr not in memo:
+                    newSubSetMask = subSetMask | (1 << k)
+                    if newSubSetMask not in memo:
                         # Add the new subset to the new set of subsets
                         newSubSets.append(newSubSet)
-                        memo[newSubSetKeyStr] = {dest: newDist}
-                    elif dest not in memo[newSubSetKeyStr] or newDist < memo[newSubSetKeyStr][dest]:
-                        memo[newSubSetKeyStr][dest] = newDist
+                        memo[newSubSetMask] = {dest: newDist}
+                    elif dest not in memo[newSubSetMask] or newDist < memo[newSubSetMask][dest]:
+                        memo[newSubSetMask][dest] = newDist
 
             # Release old memo buffer
-            memo.pop(subSetKeyStr)
+            memo.pop(subSetMask)
 
         # Replace old vertex subset with the new subset
         subSets = newSubSets
@@ -144,8 +159,8 @@ def travellingSalesManDPIter(vertices, dist):
     # Find min dist by adding the edge returning to source vertex 0
     minDist = maxDist
     for subSet in subSets:
-        subSetKeyStr = str(subSet)
-        for dest, distToDest in memo[subSetKeyStr].items():
+        subSetMask = getSubSetMask(subSet)
+        for dest, distToDest in memo[subSetMask].items():
             newDist = distToDest + dist[dest][0]
             if newDist < minDist:
                 minDist = newDist
@@ -207,7 +222,6 @@ def divide(vertSubSet, subSetKeyStr, dist, memo, dest):
     memo[subSetKeyStr][dest] = minDist
 
     return minDist
-
 
 
 #############################################################
