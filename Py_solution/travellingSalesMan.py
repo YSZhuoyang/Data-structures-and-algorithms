@@ -139,12 +139,12 @@ def travellingSalesManDPIter(vertices, dist):
                     # Compute the new dist to the vertex going through k
                     newDist = distToK + dist[k][dest]
 
-                    # Generate a new subset by adding vertex k
-                    newSubSet = subSet.copy()
-                    newSubSet.add(k)
+                    # Generate a new subset mask with kth bit enabled
                     newSubSetMask = subSetMask | (1 << k)
                     if newSubSetMask not in memo:
-                        # Add the new subset to the new set of subsets
+                        # Add the new subset containing k to the new set of subsets
+                        newSubSet = subSet.copy()
+                        newSubSet.add(k)
                         newSubSets.append(newSubSet)
                         memo[newSubSetMask] = {dest: newDist}
                     elif dest not in memo[newSubSetMask] or newDist < memo[newSubSetMask][dest]:
