@@ -124,7 +124,7 @@ def travellingSalesManDPIter(vertices, dist):
         # Enum and loop over all previous subsets
         for subSet in subSets:
             subSetMask = getSubSetMask(subSet)
-            allDistsToK = memo[subSetMask]
+            distsToKs = memo[subSetMask]
 
             for dest in range(1, numVert):
                 if dest in subSet:
@@ -132,7 +132,7 @@ def travellingSalesManDPIter(vertices, dist):
 
                 # Enum and loop over destinations go through
                 # intermediate vertex k
-                for k, distToK in allDistsToK.items():
+                for k, distToK in distsToKs.items():
                     if dest == k:
                         continue
 
