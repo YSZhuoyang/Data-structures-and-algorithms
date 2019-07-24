@@ -11,15 +11,17 @@
 # True: by converting "b" -> "x"
 
 # Idea:
-# 1. Scan s from left to right, replace letters if unmatch is found and put
-#    replacement rules in 1 hashmap / array
-# 2. Count number of placeholders used for opposite replacing e.g. a -> b and then b -> a.
-# 3. For each iteration during scanning:
-#    1. Check if the letter can be replaced with existing replacement rule
-#       if not then check if an opposite rule exists, if true then use a placeholder
-#       which can be any letter other than the letter appeared in s.
-#    2. If all placeholders are used up, or if another rule with
-#       the same source letter exists, then return False
+# 1. Find out all dependencies of replacement.
+# 1. Replacement such as a -> b and a -> c cannot both exist.
+# 2. Whenever a replacement dependency cycle appears e.g. a -> b and b -> a,
+#    use a letter does not occur in string s as a placeholder so that all of them
+#    can be replaced successfully
+
+# Steps:
+# 1. Scan through string s to find all replacement dependencies used as a graph.
+# 2. Count number of placeholders can be used for replacing dependency cycles.
+# 3. Build replacing dependency graph, whenever a cycle is detected,
+#    deduce the counter to use a placeholder, return False if all placeholders are used up
 
 # Time: O(N)
 # Space: O(N)
@@ -29,35 +31,40 @@ def convert(s, t):
     if len(s) != len(t):
         return False
 
-    # Replacement rules where key is char replaced and value is its replacement
-    rules = [None] * 26
+    # Count number of placeholders can be used for replacement dependency cycles
     numUniChars = set(s)
     numPlaceholders = 26 - len(numUniChars)
 
-    # Scan s
+    dep = [None] * 26
+    # Build replacement dependency graph
     for i in range(len(s)):
-        cs, ct = s[i], t[i]
+        cs, ct = ord(s[i]) - ord('a'), ord(t[i]) - ord('a')
         if cs != ct:
-            if rules[ord(cs) - ord('a')] == ct:
-                # Replace cs with ct if such a rule exists
-                continue
-
-            if rules[ord(cs) - ord('a')] and rules[ord(cs) - ord('a')] != ct:
-                # Another replacement rule with target isn't ct already exist
+            if dep[cs] != None and dep[cs] != ct:
+                # Dependency conflicts
                 return False
 
-            if rules[ord(ct) - ord('a')]:
-                if rules[ord(ct) - ord('a')] == cs:
-                    # if b -> a replacement already exist when we want to replace a -> b,
-                    # then use a placeholder which can be any letter other than those appeared
-                    # in s
-                    numPlaceholders -= 1
-                    if numPlaceholders < 0:
-                        return False
-                else:
-                    return False
+            dep[cs] = ct
 
-            rules[ord(cs) - ord('a')] = ct
+    # Count dependency cycles and deduce placeholder counter
+    visited = [False] * 26
+    for c in numUniChars:
+        source = ord(c) - ord('a')
+        path = [False] * 26
+        path[source] = True
+        while not visited[source] and dep[source] != None:
+            visited[source] = True
+            dest = dep[source]
+            if path[dest]:
+                # Cycle detected
+                numPlaceholders -= 1
+                if numPlaceholders < 0:
+                    # All placeholders are used up
+                    return False
+            else:
+                path[dest] = True
+            
+            source = dest
 
     return True
 
