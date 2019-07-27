@@ -108,26 +108,18 @@ def travellingSalesManDPIter(vertices, dist):
     memo = {}
     # Init with base cases:
     # Base cast 1: subset is empty: {}
-    subSet = set()
-    subSetMask = 0
-    memo[subSetMask] = {}
+    subSet = 0
+    memo[subSet] = {}
     for dest in range(1, numVert):
-        memo[subSetMask][dest] = dist[0][dest]
+        memo[subSet][dest] = dist[0][dest]
 
-    # Store all subset in previous enumveration iteration
-    subSets = [subSet]
-
-    # Outer loop with subset size ranging between: 1, N - 2
-    for _ in range(1, numVert - 1):
-        newSubSets = []
-
+    # Outer loop increasing subset size from 1 to N - 2
+    for _ in range(numVert - 2):
         # Enum and loop over all previous subsets
-        for subSet in subSets:
-            subSetMask = getSubSetMask(subSet)
-            distsToKs = memo[subSetMask]
-
+        for subSet, distsToKs in list(memo.items()):
             for dest in range(1, numVert):
-                if dest in subSet:
+                if subSet & (1 << dest):
+                    # Destination exists in the subset
                     continue
 
                 # Enum and loop over destinations go through
@@ -139,31 +131,22 @@ def travellingSalesManDPIter(vertices, dist):
                     # Compute the new dist to the vertex going through k
                     newDist = distToK + dist[k][dest]
 
-                    # Generate a new subset mask with kth bit enabled
-                    newSubSetMask = subSetMask | (1 << k)
-                    if newSubSetMask not in memo:
+                    # Generate a new subset with kth bit enabled
+                    newSubSet = subSet | (1 << k)
+                    if newSubSet not in memo:
                         # Add the new subset containing k to the new set of subsets
-                        newSubSet = subSet.copy()
-                        newSubSet.add(k)
-                        newSubSets.append(newSubSet)
-                        memo[newSubSetMask] = {dest: newDist}
-                    elif dest not in memo[newSubSetMask] or newDist < memo[newSubSetMask][dest]:
-                        memo[newSubSetMask][dest] = newDist
+                        memo[newSubSet] = {dest: newDist}
+                    elif dest not in memo[newSubSet] or newDist < memo[newSubSet][dest]:
+                        memo[newSubSet][dest] = newDist
 
-            # Release old memo buffer
-            memo.pop(subSetMask)
-
-        # Replace old vertex subset with the new subset
-        subSets = newSubSets
+            # Release previously used memo buffer
+            memo.pop(subSet)
 
     # Find min dist by adding the edge returning to source vertex 0
     minDist = maxDist
-    for subSet in subSets:
-        subSetMask = getSubSetMask(subSet)
-        for dest, distToDest in memo[subSetMask].items():
-            newDist = distToDest + dist[dest][0]
-            if newDist < minDist:
-                minDist = newDist
+    for subSet in memo:
+        for dest, distToDest in memo[subSet].items():
+            minDist = min(minDist, distToDest + dist[dest][0])
 
     return minDist
 
