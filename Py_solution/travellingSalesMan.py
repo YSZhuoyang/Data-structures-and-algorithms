@@ -106,8 +106,9 @@ def getSubSetMask(subSet):
 def travellingSalesManDPIter(vertices, dist):
     numVert = len(vertices)
     memo = {}
-    # Init with base cases:
-    # Base cast 1: subset is empty: {}
+    # Base case:
+    #   start with going through an empty set of nodes ending at node 0,
+    #   from which it goes to other nodes
     subSet = 0
     memo[subSet] = {}
     for dest in range(1, numVert):
@@ -139,7 +140,7 @@ def travellingSalesManDPIter(vertices, dist):
                     elif dest not in memo[newSubSet] or newDist < memo[newSubSet][dest]:
                         memo[newSubSet][dest] = newDist
 
-            # Release previously used memo buffer
+            # Remove previously used subsets
             memo.pop(subSet)
 
     # Find min dist by adding the edge returning to source vertex 0
