@@ -80,6 +80,14 @@ def extendPath(node, vertAvail, dist):
 # by decomposing the problem into subproblems in below approach:
 #   memo[S, dest] = min(memo[S - {dest}][k] + dist[k][dest])
 #
+# Correctness proof:
+#   Assume there exists another set S2 and k2 so that
+#   memo[S2 - {dest}][k2] + dist[k2][dest] is optimal rather than
+#   memo[S - {dest}][k] + dist[k][dest] obtained from our optimal
+#   substructure, then:
+#       it contradicts the rule saying S and k is obtained by
+#       taking the mininum among all possible candidates.
+#
 # Complexity analysis:
 # 1. Compute the length of shortest path for every subset of vertices: N ^ 2
 # 2. Total number of subsets: 2 ^ N
