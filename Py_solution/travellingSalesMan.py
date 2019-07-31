@@ -103,7 +103,7 @@ def getSubSetMask(subSet):
 # 1. 'subset' denotes the set of vertices visited in the path,
 # excluding the source vertex 0 and destination vertex j.
 # 2. Use a 32 bit integer to store vertices in the subset (1 for existence, 0 otherwise)
-def travellingSalesManDPIter(vertices, dist):
+def travellingSalesmanDPIter(vertices, dist):
     numVert = len(vertices)
     memo = {}
     # Base case:
@@ -157,7 +157,7 @@ def travellingSalesManDPIter(vertices, dist):
 #
 # Note: 'subset' denotes the set of vertices visited in the path,
 # including the destination vertex j.
-def travellingSalesManDPRec(vertices, dist):
+def travellingSalesmanDPRec(vertices, dist):
     numVert = len(vertices)
     memo = {}
     # Init with base cases:
@@ -215,8 +215,11 @@ def divide(vertSubSet, subSetKeyStr, dist, memo, dest):
 
 
 START_TIME = datetime.datetime.now().replace(microsecond=0)
+
 vertices, dist = readInputData("./tspMid")
-min = travellingSalesManDPIter(vertices, dist)
+min = travellingSalesmanDPIter(vertices, dist)
+
 END_TIME = datetime.datetime.now().replace(microsecond=0)
+
 print(str(min))
 print(str(END_TIME - START_TIME))
