@@ -3,7 +3,6 @@
 
 
 def minSwap(arr):
-    n = len(arr)
     ids = {}
     for i, e in enumerate(arr):
         # Store value - unsorted index in a dict
