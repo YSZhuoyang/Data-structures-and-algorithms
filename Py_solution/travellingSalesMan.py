@@ -1,4 +1,3 @@
-
 import math
 import datetime
 import sys
@@ -97,14 +96,6 @@ def extendPath(node, vertAvail, dist):
 maxDist = sys.maxsize
 
 
-def getSubSetMask(subSet):
-    subSetMask = 0
-    for v in subSet:
-        subSetMask |= 1 << v
-
-    return subSetMask
-
-
 # An iterative approach which optimizes memory space use.
 #
 # Note:
@@ -145,7 +136,8 @@ def travellingSalesmanDPIter(vertices, dist):
                     if newSubSet not in memo:
                         # Add the new subset containing k to the new set of subsets
                         memo[newSubSet] = {dest: newDist}
-                    elif dest not in memo[newSubSet] or newDist < memo[newSubSet][dest]:
+                    elif dest not in memo[
+                            newSubSet] or newDist < memo[newSubSet][dest]:
                         memo[newSubSet][dest] = newDist
 
             # Remove previously used subsets
@@ -181,8 +173,8 @@ def travellingSalesmanDPRec(vertices, dist):
     vertSetKeyStr = str(vertSet)
     for dest in vertSet:
         # Add the last edge returning back to the source vertex
-        totalDist = divide(vertSet, vertSetKeyStr, dist,
-                           memo, dest) + dist[dest][0]
+        totalDist = divide(vertSet, vertSetKeyStr, dist, memo,
+                           dest) + dist[dest][0]
         if totalDist < minDist:
             minDist = totalDist
 
@@ -207,8 +199,8 @@ def divide(vertSubSet, subSetKeyStr, dist, memo, dest):
     minDist = maxDist
     for k in newVertSubSet:
         # Dist to k plus dist between k-j and find min
-        totalDist = divide(newVertSubSet, newSubSetKeyStr,
-                           dist, memo, k) + dist[k][dest]
+        totalDist = divide(newVertSubSet, newSubSetKeyStr, dist, memo,
+                           k) + dist[k][dest]
         if totalDist < minDist:
             minDist = totalDist
     memo[subSetKeyStr][dest] = minDist
@@ -220,7 +212,6 @@ def divide(vertSubSet, subSetKeyStr, dist, memo, dest):
 # An approximation approach using greedy strategy
 # ...
 #############################################################
-
 
 START_TIME = datetime.datetime.now().replace(microsecond=0)
 
