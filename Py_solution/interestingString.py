@@ -1,3 +1,5 @@
+# From: https://leetcode.com/discuss/interview-question/350312/google-onsite-interesting-string
+#
 # Given a string s consisting of digits 0-9 and lowercase English letters a-z.
 #
 # A string is interesting if you can split it into several substrings,
