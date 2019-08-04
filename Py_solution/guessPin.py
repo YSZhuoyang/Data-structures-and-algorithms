@@ -18,7 +18,7 @@
 #
 # Input range:
 # 0 <= d <= 9
-#  <= l <=
+#  <= len(guess) == len(pin) <=
 #
 # Idea:
 #   1. Init res with '_'s, scan through guess and pin:
@@ -34,16 +34,13 @@
 
 
 def guessPin(guess, pin):
-    # Assume lp > 0
-    lp, lg = len(pin), len(guess)
+    # Assume l > 0
+    l = len(pin)
 
     # Store frequencies of occured digits in pin not perfect match
     freq = [0] * 10
-    res = ['_'] * lg
-    for i in range(lp):
-        if i >= lg:
-            break
-
+    res = ['_'] * l
+    for i in range(l):
         cp, cg = int(pin[i]), int(guess[i])
         if cp == cg:
             # Perfect match
@@ -52,7 +49,7 @@ def guessPin(guess, pin):
             freq[cp] += 1
 
     # Find imperfect matches
-    for i in range(lg):
+    for i in range(l):
         cg = int(guess[i])
         if freq[cg] > 0 and res[i] != '*':
             freq[cg] -= 1
