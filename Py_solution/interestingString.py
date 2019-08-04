@@ -28,7 +28,7 @@ def interestingStr(s):
     if len(sub) < numAfter + 1:
         return False
 
-    return True and interestingStr(s[numAfter + 1:])
+    return interestingStr(s[numAfter + 1:])
 
 
 print(interestingStr("4g12y6hunter"))
