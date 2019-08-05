@@ -1,6 +1,7 @@
 # From: https://leetcode.com/discuss/interview-question/350139/google-phone-screen-whac-a-mole
 
-# Given an int array holes where 1 means there is a mole, 0 means no mole. Find out the max number of moles you can hit with a mallet of width w.
+# Given an int array holes where 1 means there is a mole, 0 means no mole.
+# Find out the max number of moles you can hit with a mallet of width w.
 
 # Input Range:
 #
