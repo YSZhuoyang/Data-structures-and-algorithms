@@ -33,14 +33,11 @@
 #       where the max number of children of a parent node is 3
 #
 #
-# 2. Dij's algorithm:
-#   with a counter of broken wall, due to the condition of breaking
-#   at most 1 wall, a heap has to be used to keep track of the best candidate
+# 2. BFS with a counter of the min number of broken wall in its shortest prior
+#    path for each node
 #
-# Time: O(N * M * log(N * M))
+# Time: O(N * M)
 # Space: O(N * M)
-#
-# Note: without the breaking wall condition, a simple BFS can do the job with O(N * M) time
 
 import sys
 
@@ -54,7 +51,42 @@ def breakThroughWall(grid):
     if nc == 0:
         return 0
 
-    return dfs(grid, 0, 0, False, set(), {}) - 1
+    # return dfs(grid, 0, 0, False, set(), {}) - 1
+    return bfs(grid)
+
+
+# BFS with a counter of the min number of broken walls in its
+# prior shortest path for each node
+def bfs(g):
+    nr, nc = len(g), len(g[0])
+    counters = [[sys.maxsize] * nc for _ in range(nr)]
+    visited = [[0] * nc for _ in range(nr)]
+    queue = [(0, 0, 0, 0)]  # [(r, c, counter, distance)]
+    while queue:
+        r, c, counter, dist = queue.pop(0)
+        if outOfBound(r, c, g):
+            continue
+
+        # Break through the wall if necessary
+        counter += g[r][c]
+        # Update the min counter of broken walls
+        counters[r][c] = min(counters[r][c], counter)
+
+        if counters[r][c] > 1 or visited[r][c]:
+            continue
+
+        if r == nr - 1 and c == nc - 1:
+            return dist
+
+        dist += 1
+        queue.append((r + 1, c, counters[r][c], dist))
+        queue.append((r - 1, c, counters[r][c], dist))
+        queue.append((r, c + 1, counters[r][c], dist))
+        queue.append((r, c - 1, counters[r][c], dist))
+
+        visited[r][c] = 1
+
+    return -1
 
 
 # DFS backtrack with memorization of shortest dist from each node
