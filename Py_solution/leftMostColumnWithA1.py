@@ -3,6 +3,8 @@
 # In a binary matrix (all elements are 0 and 1), every row is sorted
 # in ascending order (0 to the left of 1). Find the leftmost column
 # index with a 1 in it.
+#
+# Similar to: https://leetcode.com/problems/search-a-2d-matrix-ii/
 
 # Example 1:
 
