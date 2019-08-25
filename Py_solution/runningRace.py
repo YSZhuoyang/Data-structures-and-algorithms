@@ -87,22 +87,22 @@ def raceBFS(rawDep):
             dep[a].add(b)
         else:
             dep[a] = set([b])
-        # Compute indegree
+        # Count indegree of each node
         indegree[a] = indegree.get(a, 0)
         indegree[b] = indegree.get(b, 0) + 1
 
     numNodes = len(indegree)
 
-    topoOrdering = []
     queue = []
     # Init queue with nodes having 0 indegree
     for node in indegree:
         if indegree[node] == 0:
             queue.append(node)
-            topoOrdering.append(node)
 
+    topoOrdering = []
     while queue:
         node = queue.pop(0)
+        topoOrdering.append(node)
         if node not in dep:
             continue
 
@@ -111,13 +111,12 @@ def raceBFS(rawDep):
             indegree[c] -= 1
             if indegree[c] == 0:
                 queue.append(c)
-                topoOrdering.append(c)
 
     return topoOrdering if len(topoOrdering) == numNodes else []
 
 
-# test = [['A', 'B'], ['A', 'C'], ['B', 'D'], ['B', 'E']]
-# print(raceBFS(test))
+test = [['A', 'B'], ['A', 'C'], ['B', 'D'], ['B', 'E']]
+print(raceBFS(test))
 
 
 # Followup solution 1: BFS with indegree counting
