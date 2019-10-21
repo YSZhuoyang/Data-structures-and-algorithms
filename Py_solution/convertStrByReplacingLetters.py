@@ -28,45 +28,55 @@
 
 
 def convert(s, t):
-    if len(s) != len(t):
-        return False
+    l = len(s)
+    if l == 0:
+        return True
 
-    # Count number of placeholders can be used for replacement dependency cycles
-    numUniChars = set(s)
-    numPlaceholders = 26 - len(numUniChars)
+    # Validate condition 1:
+    rules = {}
+    for i in range(l):
+        c1, c2 = s[i], t[i]
+        if c1 not in rules:
+            rules[c1] = c2
+        elif rules[c1] != c2:
+            # Condition 1 violated
+            return False
 
-    dep = [None] * 26
-    # Build replacement dependency graph
-    for i in range(len(s)):
-        cs, ct = ord(s[i]) - ord('a'), ord(t[i]) - ord('a')
-        if cs != ct:
-            if dep[cs] != None and dep[cs] != ct:
-                # Dependency conflicts
-                return False
+    # Build up rules with Time: O(N)
+    rules = {}
+    for i in range(l):
+        c1, c2 = s[i], t[i]
+        if c1 != c2:
+            rules[c1] = c2
 
-            dep[cs] = ct
+    exist = set(s)
+    numPlaceholders = 26 - len(set(t))
 
-    # Count dependency cycles and deduce placeholder counter
-    visited = [False] * 26
-    for c in numUniChars:
-        source = ord(c) - ord('a')
-        path = [False] * 26
-        path[source] = True
-        while not visited[source] and dep[source] != None:
-            visited[source] = True
-            dest = dep[source]
-            if path[dest]:
-                # Cycle detected
-                numPlaceholders -= 1
-                if numPlaceholders < 0:
-                    # All placeholders are used up
-                    return False
-            else:
-                path[dest] = True
-            
-            source = dest
+    # Detect cycles, by visiting each node once, Time: O(N)
+    numCycles = 0
+    visitedGlobal = set()
+    for c in exist:
+        if c in visitedGlobal:
+            continue
 
-    return True
+        # DFS
+        stack = [c]
+        visited = set()
+        while stack:
+            curr = stack.pop()
+            if curr in visited:
+                numCycles += 1
+                break
+
+            if curr in visitedGlobal:
+                break
+
+            visited.add(curr)
+            visitedGlobal.add(curr)
+            if curr in rules:
+                stack.append(rules[curr])
+
+    return numCycles <= numPlaceholders
 
 
 print(convert("aabbccdd", "aaxxccxx"))
