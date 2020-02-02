@@ -1,7 +1,5 @@
 
 ## Algorithms and Data structures
 
-Learning and practicing.
-
-* Cpp solutions are built with Microsoft Visual Studio 2015 or higher
+* Cpp solutions are built with Microsoft Visual Studio 2015
 * Java solutions are built with Intellij
