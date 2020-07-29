@@ -6,4 +6,5 @@
     * Dijkstra's Shortest Path
     * Huffman Encoding
     * Prim's Min Spanning Tree
+    * Travaling Salesman Dynamic Programming
     * ...
