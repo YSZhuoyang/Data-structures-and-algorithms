@@ -1,16 +1,12 @@
 /**
- * Created by oscar on 5/29/16.
- *
- * Received from Microsoft interview.
+ * Given a n x m 2D board where each cell contains either 1 or 0.
+ * Find a path from top left to bottom right (can move horizontally, vertically
+ * or diagonally) and can only move to the cells containing 1.
+ * Assume params n and m are always equal to number of rows and columns.
+ * A recursive solution, with a time complexity of O(M * N).
  */
 public class TwoDimensionalPathSearch
 {
-
-	// Given a n x m 2D board where each cell contains either 1 or 0.
-	// Find a path from top left to bottom right (can move horizontally, vertically
-	// or diagonally) and can only move to the cells containing 1.
-	// Assume params n and m are always equal to number of rows and columns.
-	// This is a naive solution, with a time complexity of n x m.
 	public boolean pathSearch(int[][] board, int n, int m)
 	{
 		if (board == null || n <= 0 || m <= 0 || board[n - 1][m - 1] == 0)

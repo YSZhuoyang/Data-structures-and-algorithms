@@ -1,7 +1,6 @@
 /**
  * Given k eggs, a building with n floors, find out the
  * highest floor where an egg being dropped will not break
- * (an unrealistic problem but a good practice for binary search)
  * eggs can be picked up if they do not break.
  *
  * Constraints:
@@ -9,27 +8,6 @@
  * 1 <= N <= 10000
  */
 class Solution {
-	// class Key {
-    //     public Integer x;
-    //     public Integer k;
-        
-    //     public Key(int x, int k) {
-    //         this.x = x;
-    //         this.k = k;
-    //     }
-
-    //     @Override
-    //     public int hashCode() {
-    //         return x.hashCode() ^ k.hashCode();
-    //     }
-
-    //     @Override
-    //     public boolean equals(Object o) {
-    //         Key other = (Key)o;
-    //         return x == other.x && k == other.k;
-    //     }
-    // }
-
     private HashMap<Integer, Integer> memo = new HashMap<>();
 
     public int superEggDrop(int K, int N) {
