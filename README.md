@@ -1,4 +1,9 @@
 
 ## Algorithms and Data structures
 
-* Java solutions are built with Intellij
+* Implementation of classic algorithms for learning purposes, e.g.
+
+    * Dijkstra's Shortest Path
+    * Huffman Encoding
+    * Prim's Min Spanning Tree
+    * ...
