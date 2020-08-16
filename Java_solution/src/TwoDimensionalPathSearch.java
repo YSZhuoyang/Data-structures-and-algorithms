@@ -41,8 +41,6 @@ public class TwoDimensionalPathSearch
 			}
 		}
 
-		board[r][c] = 1;
-
 		return false;
 	}
 }
